@@ -51,7 +51,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="IRepositories\IAccountRepository.cs" />
+    <Compile Include="IRepositories\IProjectRepository.cs" />
+    <Compile Include="Migrations\202012050304257_InitialDB.cs" />
+    <Compile Include="Migrations\202012050304257_InitialDB.designer.cs">
+      <DependentUpon>202012050304257_InitialDB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="RTCDbContext.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -63,6 +79,15 @@
       <Project>{a2ab91a5-b03a-4030-b049-162c3ce2241b}</Project>
       <Name>RTC.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\RTC.Model\RTC.Model.csproj">
+      <Project>{2c8801c1-a2b8-4bf7-bcd2-c691a28c815f}</Project>
+      <Name>RTC.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202012050304257_InitialDB.resx">
+      <DependentUpon>202012050304257_InitialDB.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
