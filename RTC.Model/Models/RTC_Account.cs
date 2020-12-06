@@ -25,7 +25,7 @@ namespace RTC.Model.Models
 
         public DateTime? ModifiedDate { get; set; }
 
-        public int? Status { get; set; }
+        public bool Status { get; set; }
 
         public int UserID { get; set; }
 

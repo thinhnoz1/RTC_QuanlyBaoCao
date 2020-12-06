@@ -17,7 +17,7 @@
                         AccountType = c.Int(nullable: false),
                         LastLoginDate = c.DateTime(),
                         ModifiedDate = c.DateTime(),
-                        Status = c.Int(),
+                        Status = c.Boolean(),
                         UserID = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.AccountID)
