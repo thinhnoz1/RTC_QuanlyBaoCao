@@ -71,6 +71,31 @@ namespace RTC.Service.Services
             return _accountRepository.GetSingleById(id);
         }
 
+        public int Login (string email, string password)
+        {
+            var result = _accountRepository.GetSingleByCondition(x => x.Email == email && x.Password == password);
+            if (result == null)
+            {
+                return 0;
+            }
+            else
+            {
+                if (result.Status == false)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 1;
+                }
+            };
+        }
+
+        public RTC_Account GetByEmail(string email)
+        {
+            return _accountRepository.GetByEmail(email);
+        }
+
         public void SaveChanges()
         {
             _unitOfWork.Commit();

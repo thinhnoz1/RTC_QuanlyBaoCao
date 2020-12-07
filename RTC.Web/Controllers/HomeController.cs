@@ -26,5 +26,11 @@ namespace RTC.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Test()
+        {
+            ViewBag.Message = "Test";
+            return View();
+        }
     }
 }

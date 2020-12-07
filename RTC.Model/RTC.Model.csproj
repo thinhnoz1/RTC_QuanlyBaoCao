@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\RTC_Account.cs" />
     <Compile Include="Models\RTC_DailyReport.cs" />
     <Compile Include="Models\RTC_Department.cs" />

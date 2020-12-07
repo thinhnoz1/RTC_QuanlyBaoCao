@@ -1,4 +1,5 @@
-﻿using RTC.Data.Infrastructure;
+﻿using PagedList;
+using RTC.Data.Infrastructure;
 using RTC.Data.IRepositories;
 using RTC.Model.Models;
 using System;
@@ -27,9 +28,23 @@ namespace RTC.Data.Repositories
             return query;
         }
 
-        public IEnumerable<RTC_Account> GetByEmail(string email)
+        public RTC_Account GetByEmail(string email)
         {
-            return this.DbContext.RTC_Accounts.Where(x => x.Email == email);
+            return this.DbContext.RTC_Accounts.SingleOrDefault(x => x.Email == email);
+        }
+        public IEnumerable<RTC_Account> ListAllPaging(int page, int pageSize)
+        {
+            return this.DbContext.RTC_Accounts.OrderBy(x => x.AccountID).ToPagedList(page, pageSize);
+        }
+
+        public IEnumerable<RTC_Account> ListAllPaging(string searchString, int page, int pageSize)
+        {
+            IQueryable<RTC_Account> model = this.DbContext.RTC_Accounts;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                model = model.Where(x => x.Email.Contains(searchString)).OrderBy(x => x.AccountID);
+            }
+            return model.OrderBy(x => x.AccountID).ToPagedList(page, pageSize);
         }
     }
 }

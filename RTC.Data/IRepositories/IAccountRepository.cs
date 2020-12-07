@@ -10,7 +10,9 @@ namespace RTC.Data.IRepositories
 {
     public interface IAccountRepository : IRepository<RTC_Account>
     {
-        IEnumerable<RTC_Account> GetByEmail(string email);
+        RTC_Account GetByEmail(string email);
         IEnumerable<RTC_Account> GetAllWithInfo(int pageIndex, int pageSize, out int totalRow);
+        IEnumerable<RTC_Account> ListAllPaging(int page, int pageSize);
+        IEnumerable<RTC_Account> ListAllPaging(string searchString, int page, int pageSize);
     }
 }

@@ -11,5 +11,7 @@ namespace RTC.Data.IRepositories
     public interface IProjectRepository : IRepository<RTC_Project>
     {
         IEnumerable<RTC_Project> GetByProjectID (int id);
+        IEnumerable<RTC_Project> ListAllPaging(int page, int pageSize);
+        IEnumerable<RTC_Project> ListAllPaging(string searchString, int page, int pageSize);
     }
 }
