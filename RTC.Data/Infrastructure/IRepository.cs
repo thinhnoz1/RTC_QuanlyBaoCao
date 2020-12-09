@@ -19,6 +19,7 @@ namespace RTC.Data.Infrastructure
         void Delete(T entity);
 
         void Delete(int id);
+        void Delete(long id);
 
         //Delete multi records
         void DeleteMulti(Expression<Func<T, bool>> where);

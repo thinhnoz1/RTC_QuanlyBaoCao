@@ -1,3 +1,4 @@
+using RTC.Web.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,9 @@ namespace RTC.Web
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // Autofac and Automapper configuration
+            Bootstrapper.Run();
         }
     }
 }

@@ -12,9 +12,14 @@ namespace RTC.Web.Controllers
     public class LoginController : Controller
     {
         private readonly IAccountService accountService;
-        
+
+        public LoginController(IAccountService _accountService)
+        {
+            this.accountService = _accountService;
+        }
+
         // GET: Login
-        public ActionResult Login()
+        public ActionResult Index()
         {
             return View();
         }
@@ -32,15 +37,14 @@ namespace RTC.Web.Controllers
                     userSession.Email = user.Email;
                     userSession.AccountID = user.AccountID;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    ModelState.AddModelError("", "Đăng nhập thành công!!");
-
+                    return RedirectToAction("Index", "Report");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Tài khoản sai hoặc không tồn tại!");
                 }
             }
-            return View("Login");
+            return View("Index");
         }
     }
 }

@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* || General */
+    .page-content {
+        padding: 0 !important;
+    }
+
+
+
+    /* || site-content */
+    .contact-header {
+        position: relative;
+    }
+
+    /* || Gradient Background */
+    .gradient-background {
+        background: #2f3136;
+        @*background: linear-gradient(0deg, rgba(22,94,162,1), rgba(111,185,255,1) 100%);*@
+        position: fixed;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        overflow: visible;
+    }
+    .form-background {
+        background: #36393f;
+    }
+    /* || Contact Header */
+   
+
+
+    .no-limit-width{
+        max-width: 100% !important;
+    }
+   
+
+    /* || Contact-body */
+    .body-container {
+        margin: 0 auto;
+        width: 100%;
+        max-width: 1080px;
+        padding: 0 1.5rem 5rem;
+    }
+
+    .contact-body {
+        position: relative;
+    }
+
+    /* || FORM */
+    .label-text {
+        color: white;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .input-style {
+        border-color: #262626;
+        background: #36393f;
+        border-radius: 7px;
+        color: white;
+    }
+
+    .form {
+        background: #36393f;
+        border-color: #262626;
+        padding: 2rem !important;
+        border-radius: 7px;
+        -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+        box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+    }
+
+    @@media (max-width: 600px) {
+        .form {
+            background: #36393f;
+            border-color: #262626;
+            padding: 1rem !important;
+            border-radius: 7px;
+            -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+            box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+        }
+    }
+
+    
+
+    @@media (max-width: 950px) {
+       
+
+        .body-container {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px !important;
+            padding: 0 1.5rem 5rem;
+        }
+    }
+
+   
+    /*----*/
+</style>
+
+<section id="contact-container">
+    <div class="site-container">
+        <div class="site-content">
+            @*/* || Gradient Background */*@
+            <div class="gradient-background"></div>
+
+            @*/* || Contact-body */*@
+            <div class="contact-body">
+                <div class="body-container d-flex flex-wrap">
+                    <!-- || Form -->
+                    <div class="form table-bordered form-background col-lg-12 col-xs-12" style="margin-top: 4rem; margin-bottom: 4rem;">
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Chi tiết công việc</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Công việc đã hoàn thành</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Vấn đề tồn đọng</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Giải pháp dự kiến (nếu có)</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Công việc dự kiến ngày mai</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label label-text" for="example-textarea">Ghi chú thêm</label>
+                            <div class="">
+                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                            </div>
+                        </div>
+
+                        <div class="btn-send text-center">
+                            <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed" style="background-color:#165ea2 !important; border-color:#165ea2 !important" onclick="CollectionInfo()">Gửi</button>
+                        </div>
+                    </div>
+                    <!-- -->
+                   
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    function ValidateForm() {
+        var isValid = true;
+        var userName = $('#input-name').val().trim();
+        var phone = $('#input-phone').val();
+        if (userName == null || userName == undefined || userName == 0) {
+            $('#input-name-error').text('Vui lòng nhập tên của bạn')
+            $('#input-name-error').removeClass('d-none');
+            isValid = false;
+        }
+        else
+            $('#input-name-error').addClass('d-none');
+
+        if (phone == null || phone == undefined || phone.length == 0) {
+            $('#input-phone-error').text('Vui lòng nhập số điện thoại của bạn')
+            $('#input-phone-error').removeClass('d-none');
+            isValid = false;
+        }
+        else if (!isValidPhoneNumber(phone)) {
+            $('#input-phone-error').text('Vui lòng nhập đúng định dạng số điện thoại')
+            $('#input-phone-error').removeClass('d-none');
+            isValid = false;
+        }
+        else
+            $('#input-phone-error').addClass('d-none');
+        return isValid;
+    }
+</script>
+
