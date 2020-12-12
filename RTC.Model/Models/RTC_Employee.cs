@@ -36,7 +36,6 @@ namespace RTC.Model.Models
         public virtual IEnumerable<RTC_Department> RTC_Department { get; set; }
         public virtual IEnumerable<RTC_ProjectMember> RTC_ProjectMember { get; set; }
         public virtual IEnumerable<RTC_TeamMember> RTC_TeamMember { get; set; }
-        public virtual IEnumerable<RTC_DailyReport> RTC_DailyReport { get; set; }
 
 
     }

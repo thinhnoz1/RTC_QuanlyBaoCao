@@ -11,6 +11,6 @@ namespace RTC.Data.IRepositories
     public interface IReportDetailRepository : IRepository<RTC_ReportDetail>
     {
         RTC_ReportDetail GetByID(long id);
-        
+        RTC_ReportDetail GetInfoByObj(RTC_ReportDetail reportDetail);
     }
 }

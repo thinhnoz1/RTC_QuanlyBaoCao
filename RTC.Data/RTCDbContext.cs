@@ -17,7 +17,6 @@ namespace RTC.Data
         }
 
         public  DbSet<RTC_Account> RTC_Accounts { get; set; }
-        public  DbSet<RTC_DailyReport> RTC_DailyReports { get; set; }
         public  DbSet<RTC_Department> RTC_Departments { get; set; }
         public  DbSet<RTC_Employee> RTC_Employees { get; set; }
         public  DbSet<RTC_Project> RTC_Projects { get; set; }

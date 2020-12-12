@@ -11,6 +11,7 @@ namespace RTC.Service.IServices
         void Add(RTC_Employee employee);
         void Update(RTC_Employee employee);
         void Delete(int id);
+        RTC_Employee GetByID(int id);
         IEnumerable<RTC_Employee> GetAll();
         IEnumerable<RTC_Employee> ListAllPaging(int page, int pageSize);
         IEnumerable<RTC_Employee> ListAllPaging(string searchString, int page, int pageSize);

@@ -19,7 +19,6 @@ namespace RTC.Common.ViewModels
         public string ProjectCode { get; set; }
         public DateTime DateCreated { get; set; }
 
-        public virtual DailyReportViewModel RTC_DailyReport { get; set; }
 
         public virtual ProjectViewModel RTC_Project { get; set; }
     }

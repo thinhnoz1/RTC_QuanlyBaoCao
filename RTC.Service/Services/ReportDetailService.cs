@@ -5,6 +5,7 @@ using RTC.Service.IServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,7 +16,7 @@ namespace RTC.Service.Services
         IReportDetailRepository reportDetailRepository;
         IUnitOfWork unitOfWork;
 
-        public ReportDetailService(IReportDetailRepository _reportDetailRepository , IUnitOfWork _unitOfWork)
+        public ReportDetailService(IReportDetailRepository _reportDetailRepository, IUnitOfWork _unitOfWork)
         {
             this.reportDetailRepository = _reportDetailRepository;
             this.unitOfWork = _unitOfWork;
@@ -44,5 +45,14 @@ namespace RTC.Service.Services
         {
             reportDetailRepository.Update(report);
         }
+        public RTC_ReportDetail GetInfoByObj(RTC_ReportDetail reportDetail)
+        {
+            return reportDetailRepository.GetInfoByObj(reportDetail);
+        }
+
+        /*public IEnumerable<RTC_ReportDetail> GetWithCondition(int userID, int projectID)
+        {
+            return reportDetailRepository.GetMulti(x => x.);
+        }*/
     }
 }

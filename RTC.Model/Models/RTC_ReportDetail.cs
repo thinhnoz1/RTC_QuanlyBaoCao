@@ -9,11 +9,11 @@ namespace RTC.Model.Models
     public class RTC_ReportDetail
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ReportID { get; set; }
 
         public int ProjectID { get; set; }
-
+        public int UserID { get; set; }
         public string WorkDetail { get; set; }
 
         public string WorkFinished { get; set; }
@@ -31,8 +31,6 @@ namespace RTC.Model.Models
 
         [Column(TypeName = "date")]
         public DateTime DateCreated { get; set; }
-
-        public virtual RTC_DailyReport RTC_DailyReport { get; set; }
 
         public virtual RTC_Project RTC_Project { get; set; }
     }

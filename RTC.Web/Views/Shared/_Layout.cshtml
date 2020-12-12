@@ -2,35 +2,40 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/bundles/baseCss")
     <!--FontAwesome-->
     @Styles.Render("~/bundles/fontawesome")
     <!-- base css -->
     @*@Styles.Render("~/bundles/baseCss")*@
-    @section scripts{
-        <script src="~/AngularJS/App/app.js">
-        </script>
-   }
+    @*<script src="~/Scripts/angular.js"></script>*@
+    @RenderSection("HeaderSection", required: false)
+
 </head>
 <body style="padding: 0 !important">
-    <div class="page-wrapper" ng-app="RTCWeb">
+    <div class="page-wrapper" ng-app="RTCWebApp">
         <main id="js-page-content" role="main" class="page-content">
             @RenderBody()
         </main>
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year Copyright by Thinhnoz1</p>
+            @*<p>&copy; @DateTime.Now.Year Copyright by Thinhnoz1</p>*@
         </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/moment.js")
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/baseJs")
+    @Scripts.Render("~/bundles/angular")
+    @RenderSection("FooterSection", required: false)
 </body>
 
 

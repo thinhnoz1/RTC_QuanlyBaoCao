@@ -62,8 +62,9 @@
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="IRepositories\IAccountRepository.cs" />
-    <Compile Include="IRepositories\IDailyReportRepository.cs" />
+    <Compile Include="IRepositories\IEmployeeRepository.cs" />
     <Compile Include="IRepositories\IProjectRepository.cs" />
+    <Compile Include="IRepositories\IReportDetailRepository.cs" />
     <Compile Include="Migrations\202012050304257_InitialDB.cs" />
     <Compile Include="Migrations\202012050304257_InitialDB.designer.cs">
       <DependentUpon>202012050304257_InitialDB.cs</DependentUpon>
@@ -74,8 +75,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
-    <Compile Include="Repositories\DailyReportRepository.cs" />
+    <Compile Include="Repositories\EmployeeRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\ReportDetailRepository.cs" />
     <Compile Include="RTCDbContext.cs" />
     <Compile Include="Infrastructure\IDbFactory.cs" />
     <Compile Include="Infrastructure\IRepository.cs" />

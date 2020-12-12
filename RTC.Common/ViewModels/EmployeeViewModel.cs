@@ -21,7 +21,6 @@ namespace RTC.Common.ViewModels
         public string Email { get; set; }
 
         public string Image { get; set; }
-        public virtual IEnumerable<DailyReportViewModel> RTC_DailyReport { get; set; }
 
 
     }

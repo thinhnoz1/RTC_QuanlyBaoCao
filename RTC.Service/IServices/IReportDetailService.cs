@@ -14,5 +14,6 @@ namespace RTC.Service.IServices
         void Delete(long id);
         RTC_ReportDetail GetByID(long id);
         void SaveChanges();
+        RTC_ReportDetail GetInfoByObj(RTC_ReportDetail reportDetail);
     }
 }

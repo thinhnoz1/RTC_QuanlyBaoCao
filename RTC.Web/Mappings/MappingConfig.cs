@@ -12,7 +12,6 @@ namespace RTC.Web.Mappings
     {
        public MappingConfig()
         {
-            CreateMap<RTC_DailyReport, DailyReportViewModel>();
             CreateMap<RTC_Employee, EmployeeViewModel>();
             CreateMap<RTC_Project, ProjectViewModel>();
             CreateMap<RTC_ReportDetail, ReportDetailViewModel>();

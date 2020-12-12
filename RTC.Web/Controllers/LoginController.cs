@@ -12,10 +12,11 @@ namespace RTC.Web.Controllers
     public class LoginController : Controller
     {
         private readonly IAccountService accountService;
-
-        public LoginController(IAccountService _accountService)
+        private readonly IEmployeeService employeeService;
+        public LoginController(IAccountService _accountService, IEmployeeService _employeeService)
         {
             this.accountService = _accountService;
+            this.employeeService = _employeeService;
         }
 
         // GET: Login
@@ -33,9 +34,13 @@ namespace RTC.Web.Controllers
                 if (result == 1)
                 {
                     var user = accountService.GetByEmail(model.Email);
+
+                    var employee = employeeService.GetByID(user.UserID);
                     var userSession = new AccountLogin();
                     userSession.Email = user.Email;
                     userSession.AccountID = user.AccountID;
+                    userSession.UserID = user.UserID;
+                    userSession.FullName = employee.FullName;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     return RedirectToAction("Index", "Report");
                 }

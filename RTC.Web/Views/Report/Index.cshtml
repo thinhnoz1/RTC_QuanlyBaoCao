@@ -31,13 +31,13 @@
         background: #36393f;
     }
     /* || Contact Header */
-   
+
 
 
     .no-limit-width{
         max-width: 100% !important;
     }
-   
+
 
     /* || Contact-body */
     .body-container {
@@ -54,6 +54,7 @@
     /* || FORM */
     .label-text {
         color: white;
+        font-size:1rem;
     }
 
     .form-group {
@@ -76,6 +77,8 @@
         box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
     }
 
+
+
     @@media (max-width: 600px) {
         .form {
             background: #36393f;
@@ -87,10 +90,10 @@
         }
     }
 
-    
+
 
     @@media (max-width: 950px) {
-       
+
 
         .body-container {
             margin: 0 auto;
@@ -100,11 +103,11 @@
         }
     }
 
-   
+
     /*----*/
 </style>
 
-<section id="contact-container">
+<section id="contact-container" ng-controller="ReportController" ng-cloak>
     <div class="site-container">
         <div class="site-content">
             @*/* || Gradient Background */*@
@@ -115,60 +118,99 @@
                 <div class="body-container d-flex flex-wrap">
                     <!-- || Form -->
                     <div class="form table-bordered form-background col-lg-12 col-xs-12" style="margin-top: 4rem; margin-bottom: 4rem;">
+                        <div class="label-text text-center text-uppercase">
+                            <span style="font-size: 2rem;">Báo cáo hàng ngày</span>
+                        </div>
+
+                        <div class="label-text text-center">
+                            <span>Xin chào </span> <span style="color:#ffd300">{{User.FullName}}</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ProjectID" class="label-text">Chọn dự án</label>
+                            <select ng-model="ReportDetail.ProjectID" id="projectList" class="select2 form-control col-md-9 col-sm-12 label-text" style="background:#36393f">
+                                @*ng-if="ListFilterdocInfo.length == 0"*@
+                                <option class="label-text" ng-repeat="item in ProjectList" value="{{item.ProjectID}}">{{item.ProjectCode}}</option>
+                                @*<option value="smthg" class="label-text" >Chọn dự án 1</option>*@
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Chi tiết công việc</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.WorkDetail" class="form-control input-style no-limit-width work-detail label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Công việc đã hoàn thành</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.WorkFinished" class="form-control input-style no-limit-width work-finished label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Vấn đề tồn đọng</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.ProblemRemained" class="form-control input-style no-limit-width problem-remained label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Giải pháp dự kiến (nếu có)</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.ExpectedSolution" class="form-control input-style no-limit-width expected-solution label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Công việc dự kiến ngày mai</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.NextDayWork" class="form-control input-style no-limit-width upcoming-work label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-label label-text" for="example-textarea">Ghi chú thêm</label>
                             <div class="">
-                                <textarea class="form-control input-style no-limit-width" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                <textarea ng-model="ReportDetail.Note" class="form-control input-style no-limit-width work-note label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                             </div>
                         </div>
 
                         <div class="btn-send text-center">
-                            <button type="button" class="btn btn-primary btn-pills waves-effect waves-themed" style="background-color:#165ea2 !important; border-color:#165ea2 !important" onclick="CollectionInfo()">Gửi</button>
+                            <button type="button" data-toggle="modal" data-target="#modal1" ng-click="Submit()" class="btn btn-primary btn-pills waves-effect waves-themed label-text col-4" style="background-color:#165ea2 !important; border-color:#165ea2 !important" onclick="CollectionInfo()">
+                                <span>Gửi</span>
+                            </button>
                         </div>
+                        
                     </div>
                     <!-- -->
-                   
 
+
+                </div>
+            </div>
+            <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            ...
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<script type="text/javascript">
+@*<script type="text/javascript">
     function ValidateForm() {
         var isValid = true;
         var userName = $('#input-name').val().trim();
@@ -195,5 +237,20 @@
             $('#input-phone-error').addClass('d-none');
         return isValid;
     }
-</script>
+</script>*@
 
+@*nhung xuong cuoi trang*@
+@section FooterSection{
+    <script src="~/AngularJS/Service/ReportService.js"></script>
+    <script src="~/AngularJS/Controller/ReportController.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(function () {
+                $('.select2').select2();
+
+            });
+        });
+
+    </script>
+}

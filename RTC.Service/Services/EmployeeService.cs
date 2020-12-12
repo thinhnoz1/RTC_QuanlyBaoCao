@@ -31,9 +31,16 @@ namespace RTC.Service.Services
             employeeRepository.Delete(id);
         }
 
+
+
         public IEnumerable<RTC_Employee> GetAll()
         {
             return employeeRepository.GetAll();
+        }
+
+        public RTC_Employee GetByID(int id)
+        {
+            return employeeRepository.GetSingleById(id);
         }
 
         public IEnumerable<RTC_Employee> ListAllPaging(int page, int pageSize)

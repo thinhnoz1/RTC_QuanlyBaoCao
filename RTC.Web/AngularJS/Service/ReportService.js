@@ -2,18 +2,33 @@
 
 RTCWebApp.service("ReportService",
     function ($http) {
-        this.GetBlogManagementWithFilter = function (listCategoryId, status) {
+        this.GetProjectList = function () {
             var response = $http({
                 method: 'POST',
-                url: '/Administrator/GetBlogListWithFilter',
-                data: { categoriesID: listCategoryId, status: status },
+                url: '/Report/GetProjectList',
                 dataType: "json"
             })
             return response;
         };
 
-        this.GetAllWithPaged = function () {
+        this.SubmitForm = function (_reportDetail) {
+            var response = $http({
+                method: 'POST',
+                data: { reportDetail: _reportDetail },
+                url: '/Report/SubmitForm',
+                dataType: "json"
+            })
+            return response;
+        };
 
+        this.GetUserInfo = function () {
+            var response = $http({
+                method: 'POST',
+                url: '/Report/GetUserInfo',
+                dataType: "json"
+            })
+            return response;
         }
-    }
+    },
+
 );

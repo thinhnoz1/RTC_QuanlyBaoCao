@@ -6,26 +6,26 @@ using System.Web;
 using System.Web.Mvc;
 using RTC.Common.ViewModels;
 using AutoMapper;
+using RTC.Model.Models;
+using RTC.Common.Common;
 
 namespace RTC.Web.Controllers
 {
     public class ReportController : BaseController
     {
-        private readonly IDailyReportService dailyReportService;
         private readonly IReportDetailService reportDetailService;
         private readonly IProjectService projectService;
+        private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
 
         public ReportController(
-            IDailyReportService _dailyReportService, 
-            IReportDetailService _reportDetailService, 
+            IReportDetailService _reportDetailService,
             IProjectService _projectService,
-            IMapper _mapper)
+            IEmployeeService _employeeService)
         {
-            this.dailyReportService = _dailyReportService;
             this.reportDetailService = _reportDetailService;
             this.projectService = _projectService;
-            this.mapper = _mapper;
+            this.employeeService = _employeeService;
         }
         // GET: Report
         public ActionResult Index()
@@ -33,6 +33,55 @@ namespace RTC.Web.Controllers
             return View();
         }
 
+        public ActionResult GetProjectList()
+        {
+            try
+            {
+                var test1 = projectService.GetAll().ToList();
+                return AjaxResult(true, "success", test1);
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "error", null, e.Message);
+            }
+
+        }
+
+        public ActionResult GetUserInfo()
+        {
+            try
+            {
+                var session = (AccountLogin)Session[CommonConstants.USER_SESSION];
+                var user = employeeService.GetByID(session.UserID);
+                return AjaxResult(true, "success", user);
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "error", null, e.Message);
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult SubmitForm (RTC_ReportDetail reportDetail)
+        {
+            try
+            {
+                var session = (AccountLogin)Session[CommonConstants.USER_SESSION];
+
+                reportDetail.DateCreated = DateTime.Now;
+                reportDetail.UserID = session.UserID;
+                reportDetailService.Add(reportDetail);
+                reportDetailService.SaveChanges();
+
+                return AjaxResult(true);
+
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
 
     }
 }
