@@ -61,7 +61,6 @@ namespace RTC.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public ActionResult SubmitForm (RTC_ReportDetail reportDetail)
         {
@@ -82,6 +81,34 @@ namespace RTC.Web.Controllers
                 return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
             }
         }
+
+        public ActionResult Check()
+        {
+            try
+            {
+                var session = (AccountLogin)Session[CommonConstants.USER_SESSION];
+                var test = reportDetailService.GetReportByDate(session.UserID).ToList();
+                if (test.Count() > 0)
+                {
+                    return AjaxResult(true, "success", test);
+                }
+                else return AjaxResult(false, "error", null);
+                
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "error", null, e.Message);
+            }
+
+        }
+
+        public ActionResult Logout()
+        {
+            Session.Clear();//remove session
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

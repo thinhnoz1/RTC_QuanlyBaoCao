@@ -27,6 +27,7 @@ namespace RTC.Data.Repositories
             var date = reportDetail.DateCreated.ToString();
             return this.DbContext.RTC_ReportDetails.SingleOrDefault(x => x.WorkDetail == reportDetail.WorkDetail && x.ProjectID == reportDetail.ProjectID && x.DateCreated.ToString() == reportDetail.DateCreated.ToString());
         }
-  
+
+        
     }
 }

@@ -28,7 +28,16 @@ RTCWebApp.service("ReportService",
                 dataType: "json"
             })
             return response;
-        }
+        };
+
+        this.Check = function () {
+            var response = $http({
+                method: "POST",
+                url: '/Report/Check',
+                dataType: "json"
+            })
+            return response;
+        };
     },
 
 );

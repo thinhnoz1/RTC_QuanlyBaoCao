@@ -50,6 +50,19 @@ namespace RTC.Service.Services
             return reportDetailRepository.GetInfoByObj(reportDetail);
         }
 
+        public IEnumerable<RTC_ReportDetail> GetAll(int id)
+        {
+            var a = reportDetailRepository.GetMulti(x => x.UserID.Equals(id));
+            return a;
+        }
+
+        public IEnumerable<RTC_ReportDetail> GetReportByDate(int userID)
+        {
+            var current = DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year;
+            var listReport = reportDetailRepository.GetMulti(x => x.UserID == userID && (x.DateCreated.Day + x.DateCreated.Month + x.DateCreated.Year).Equals(current));
+            return listReport;
+        }
+
         /*public IEnumerable<RTC_ReportDetail> GetWithCondition(int userID, int projectID)
         {
             return reportDetailRepository.GetMulti(x => x.);
