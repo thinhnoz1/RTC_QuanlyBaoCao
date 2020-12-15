@@ -1,25 +1,25 @@
 ﻿
-RTCWebApp.controller('ReportController',
-    function ($scope, ReportService, $interval, $timeout, $filter, $rootScope, $location) {
+RTCWebApp.controller('ReportAdminController',
+    function ($scope, ReportAdminService, $interval, $timeout, $filter, $rootScope, $location) {
         console.log("Inside-Controller access");
         $scope.ProjectList = [];
         $scope.User = [];
         $scope.TodayReport = [];
-       /* $scope.ListReportName = [];*/
+        /* $scope.ListReportName = [];*/
         $scope.check = null;
         $scope.ReportDetail = {
-            ProjectID : null,
-            WorkDetail : null,
-            WorkFinished : null,
-            ProblemRemained : null,
-            ExpectedSolution : null,
-            ProjectCode : null,
-            NextDayWork : null,
-            Note : null
+            ProjectID: null,
+            WorkDetail: null,
+            WorkFinished: null,
+            ProblemRemained: null,
+            ExpectedSolution: null,
+            ProjectCode: null,
+            NextDayWork: null,
+            Note: null
         }
 
-        $scope.Test = function () {
-            var request = ReportService.Check();
+        $scope.GetTodayReport = function () {
+            var request = ReportAdminService.Check();
             request.then(function (res) {
                 $scope.TodayReport = res.data.Json;
                 console.log($scope.TodayReport);
@@ -38,8 +38,8 @@ RTCWebApp.controller('ReportController',
             })
         }
 
-       
 
+/*
         $scope.GetProjectList = function () {
             var request = ReportService.GetProjectList();
             request.then(function (res) {
@@ -69,7 +69,6 @@ RTCWebApp.controller('ReportController',
                     if (res.data.IsSuccess) {
                         toastr["success"]("Gửi báo cáo thành công !!");
                         $scope.Cleartext();
-                        $scope.Init();
                     }
                     else
                         toastr["error"]("Gửi bảo cáo thất bại :( ")
@@ -84,12 +83,12 @@ RTCWebApp.controller('ReportController',
                 toastr["error"]("Vui lòng hoàn thành đầy đủ báo cáo !");
             }
         }
-
+*/
 
         $scope.Init = function () {
-            $scope.GetProjectList();
-            $scope.GetUserInfo();
-            $scope.Test();
+           /* $scope.GetProjectList();
+            $scope.GetUserInfo();*/
+            $scope.GetTodayReport();
         }
         $scope.Init();
         console.log("Controller access");

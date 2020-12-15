@@ -17,5 +17,6 @@ namespace RTC.Service.IServices
         RTC_ReportDetail GetInfoByObj(RTC_ReportDetail reportDetail);
         IEnumerable<RTC_ReportDetail> GetReportByDate(int userID);
         IEnumerable<RTC_ReportDetail> GetAll(int id);
+        IEnumerable<RTC_ReportDetail> GetReportByDate();
     }
 }

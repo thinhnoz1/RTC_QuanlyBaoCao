@@ -121,12 +121,16 @@
                 <div class="body-container d-flex flex-wrap">
                     <!-- || Form -->
                     <form class="form table-bordered form-background col-lg-12 col-xs-12" novalidate name="formReport" style="margin-top: 4rem; margin-bottom: 4rem;">
+                        <div class="">
+                            <a href="/Admin" style="color:white" >Trở về trang admin</a>
+                        </div>
+                        
                         <div class="label-text text-center text-uppercase">
                             <span style="font-size: 2rem; color: orange">Báo cáo hàng ngày</span>
                         </div>
 
                         <div class="label-text text-center">
-                            <span>Xin chào </span> <span style="color:#ffd300">{{User.FullName}} </span> <span class="label-text">(Nếu không phải bạn ?</span> <a href="@Url.Action("Logout","Report")" style="color: white" class="btn btn-warning ml-2">Đăng xuất</a>)
+                            <span>Xin chào </span> <span style="color:#ffd300">{{User.FullName}} </span> <span class="label-text">(Nếu không phải bạn ?</span> <a href="@Url.Action("Logout","Report")" style="color: white;padding:0.2rem !important" class="btn btn-warning ml-2">Đăng xuất</a><span>  )</span>
 
                         </div>
 
@@ -188,7 +192,9 @@
                             </div>
 
                             <div class="btn-send text-center">
-                                <button type="button" @*data-toggle="modal" data-target="#modal1"*@ ng-click="Submit()" ng-disabled="formReport.$invalid" class="btn btn-primary btn-pills waves-effect waves-themed label-text col-4" style="background-color:#165ea2 !important; border-color:#165ea2 !important" onclick="CollectionInfo()">
+                                <button type="button" @*data-toggle="modal" data-target="#modal1"*@ ng-click="Submit()" ng-disabled="formReport.$invalid" 
+                                        class="btn btn-primary btn-pills waves-effect waves-themed label-text col-4" 
+                                        style="background-color:#165ea2 !important; border-color:#165ea2 !important;" onclick="CollectionInfo()">
                                     <span>Gửi</span>
                                 </button>
                             </div>
@@ -211,7 +217,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div ng-repeat="item in TodayReport">
+                            <div dir-paginate="item in TodayReport | itemsPerPage:itemsPerPage" >
                                 <div class="label-text">Dự án: {{item.ProjectCode}}</div>
                                 <span class="label-text">Chi tiết công việc: </span>
                                 <p class="label-text ml-3">  {{item.WorkDetail}}</p>

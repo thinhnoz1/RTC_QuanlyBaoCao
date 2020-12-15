@@ -63,6 +63,14 @@ namespace RTC.Service.Services
             return listReport;
         }
 
+        public IEnumerable<RTC_ReportDetail> GetReportByDate()
+        {
+            var current = DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year;
+            var listReport = reportDetailRepository.GetMulti(x => (x.DateCreated.Day + x.DateCreated.Month + x.DateCreated.Year).Equals(current));
+            
+            return listReport;
+        }// Da test thanh cong
+
         /*public IEnumerable<RTC_ReportDetail> GetWithCondition(int userID, int projectID)
         {
             return reportDetailRepository.GetMulti(x => x.);

@@ -31,7 +31,8 @@ namespace RTC.Web
                         "~/Scripts/angular-route.min.js",
                         "~/Scripts/angular-animate.min.js",
                         "~/Scripts/angular-aria.min.js",*/
-                        "~/AngularJS/App/app.js"
+                        "~/AngularJS/App/app.js",
+                        "~/Scripts/dirPagination.js"
                       ));
             bundles.Add(new StyleBundle("~/bundles/fontawesome").Include(
                 "~/Content/Themes/css/fa-regular.css",
@@ -66,3 +67,4 @@ namespace RTC.Web
         }
     }
 }
+

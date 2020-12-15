@@ -41,8 +41,12 @@ namespace RTC.Web.Controllers
                     userSession.AccountID = user.AccountID;
                     userSession.UserID = user.UserID;
                     userSession.FullName = employee.FullName;
+                    userSession.AccountType = user.AccountType;
                     Session.Add(CommonConstants.USER_SESSION, userSession);
-                    return RedirectToAction("Index", "Report");
+                    if (user.AccountType == 2)
+                        return RedirectToAction("Index", "Report");
+                    else
+                        return RedirectToAction("Index", "ReportAdmin", new { area = "Admin" });
                 }
                 else
                 {

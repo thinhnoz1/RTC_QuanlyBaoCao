@@ -13,6 +13,6 @@ namespace RTC.Common.Common
         public string Email { get; set; }
         public int UserID { get; set; }
         public string FullName { get; set; }
-
+        public int AccountType { get; set; }
     }
 }

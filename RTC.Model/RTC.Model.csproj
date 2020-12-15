@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RTC_Account.cs" />
     <Compile Include="Models\RTC_Department.cs" />
     <Compile Include="Models\RTC_Employee.cs" />
