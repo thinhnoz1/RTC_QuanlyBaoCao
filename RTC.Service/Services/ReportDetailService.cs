@@ -56,19 +56,33 @@ namespace RTC.Service.Services
             return a;
         }
 
+        public IEnumerable<RTC_ReportDetail> GetAll()
+        {
+            var a = reportDetailRepository.GetAll();
+            return a;
+        }
+
         public IEnumerable<RTC_ReportDetail> GetReportByDate(int userID)
         {
-            var current = DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year;
-            var listReport = reportDetailRepository.GetMulti(x => x.UserID == userID && (x.DateCreated.Day + x.DateCreated.Month + x.DateCreated.Year).Equals(current));
+            var current = DateTime.Now;
+            var listReport = reportDetailRepository.GetMulti(x => x.UserID == userID && x.DateCreated.Day == current.Day && x.DateCreated.Month == current.Month && x.DateCreated.Year == current.Year);
             return listReport;
         }
 
         public IEnumerable<RTC_ReportDetail> GetReportByDate()
         {
-            var current = DateTime.Now.Month + DateTime.Now.Day + DateTime.Now.Year;
-            var listReport = reportDetailRepository.GetMulti(x => (x.DateCreated.Day + x.DateCreated.Month + x.DateCreated.Year).Equals(current));
-            
+            var current = DateTime.Now;
+            var listReport = reportDetailRepository.GetMulti(x => x.DateCreated.Day == current.Day && x.DateCreated.Month == current.Month && x.DateCreated.Year == current.Year);
+
             return listReport;
+        }// Da test thanh cong
+
+        public List<int> GetListUserReportedByDate()
+        {
+            var current = DateTime.Now;
+            var listReport = reportDetailRepository.GetMulti(x => x.DateCreated.Day == current.Day && x.DateCreated.Month == current.Month && x.DateCreated.Year == current.Year).ToList();
+            var result = listReport.Select(x => x.UserID).ToList();
+            return result;
         }// Da test thanh cong
 
         /*public IEnumerable<RTC_ReportDetail> GetWithCondition(int userID, int projectID)

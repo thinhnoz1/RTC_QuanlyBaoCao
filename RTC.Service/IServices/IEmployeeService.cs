@@ -13,6 +13,7 @@ namespace RTC.Service.IServices
         void Delete(int id);
         RTC_Employee GetByID(int id);
         IEnumerable<RTC_Employee> GetAll();
+        IEnumerable<RTC_Employee> GetUsersWithList(List<int> listID);
         IEnumerable<RTC_Employee> ListAllPaging(int page, int pageSize);
         IEnumerable<RTC_Employee> ListAllPaging(string searchString, int page, int pageSize);
         void SaveChanges();

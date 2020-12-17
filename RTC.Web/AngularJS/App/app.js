@@ -1,3 +1,3 @@
 ﻿
  
-var RTCWebApp = angular.module('RTCWebApp', ['angularUtils.directives.dirPagination']);
+var RTCWebApp = angular.module('RTCWebApp', []);

@@ -31,5 +31,10 @@ namespace RTC.Data.Repositories
             }
             return model.OrderBy(x => x.FullName).ToPagedList(page, pageSize);
         }
+
+        public IEnumerable<RTC_Employee> GetUsersWithList(List<int> listID)
+        {
+            return this.DbContext.RTC_Employees.Join(listID, up => up.UserID, id => id, (up, id) => up);
+        }
     }
 }

@@ -1,0 +1,37 @@
+﻿@model  IEnumerable<RTC.Model.Models.RTC_Employee>
+
+<div class="modal fade" id="md-CheckReported" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom">
+                <h2 class="modal-title text-center text-uppercase fw-500 ml-2">Nhân viên chưa báo cáo</h2>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+
+                    <div class="form-group">
+                        <div class="">Tên nhân viên:</div>
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-12">
+                                @item.FullName
+                            </div>
+                        }
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                @* <button type="button" class="btn btn-primary btna-addlabel" onclick="Action_AddLabel()">Tạo mới</button>
+                    <button type="button" class="btn btn-primary btna-updatelabel" onclick="Action_UpdateLabel()">Lưu lại</button>*@
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

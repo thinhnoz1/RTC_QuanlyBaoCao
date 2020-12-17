@@ -1,91 +1,212 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
 
-<!-- DataTales Example -->
-<div class="card shadow mb-4" ng-controller="ReportAdminController" ng-cloak>
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Quản lý báo cáo</h6>
-    </div>
-    @* @using (Html.BeginForm("Index", "Account", FormMethod.Get))
-        {*@
-    <div class="row">
-        <div class="col-12">
-            <div class="col-lg-8">
-                <i class="fa fa-search" aria-hidden="true"></i>
-                <input type="text" name="searchString" value="@*@ViewBag.SearchString*@" />
-                <button type="submit">Tìm kiếm</button>
+<div class="subheader">
+
+</div>
+<div class="row">
+    <div class="col-xl-12">
+        <div id="panel-1" class="panel">
+            <div class="panel-hdr">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Quản lý báo cáo theo ngày</h6>
+                </div>
             </div>
-
-        </div>
-    </div>
-    @*  }
-        @if (Model != null)
-        {*@
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr ng-if="TodayReport != null" style="background-color: gainsboro;">
-                        <th>#</th>
-                        <th>Tên nhân viên</th>
-                        <th>Tên dự án</th>
-                        <th>Chi tiết</th>
-                        <th>Đã hoàn thành</th>
-                        <th>Vấn đề tồn đọng</th>
-                        <th>Giải pháp dự kiến</th>
-                        <th>Giải pháp dự kiến</th>
-                        <th>Công việc ngày mai</th>
-                        <th>Ghi chú thêm</th>
-                    </tr>
-                    <tr ng-if="TodayReport == null" style="background-color: gainsboro;">
-                        <th style="color: red">Error</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-if="TodayReport != null" dir-paginate="item in TodayReport | itemsPerPage: 10" id="{{item.ReportID}}" pagination-id="dishesPagination">
-                        <td>
-                            <a href="#">Xem</a> |
-                        </td>
-                        <td>{{item.WorkDetail}}</td>
-                        <td>{{item.WorkFinished}}</td>
-                        <td>{{item.ProblemRemained}}</td>
-                        <td>{{item.ExpectedSolution}}</td>
-                    </tr>
-
-                    <tr ng-if="TodayReport == null">
-                        <td>
-                            Không có dữ liệu
-                        </td>
-                    </tr>
-
-                </tbody>
-            </table>
-            @*  @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @searchString = ViewBag.SearchString }))*@
-            <div>
-                <dir-pagination-controls max-size="8"
-                                         direction-links="true"
-                                         boundary-links="true"
-                                         pagination-id="dishesPagination"
-                                         on-page-change="GetTodayReport()">
-                </dir-pagination-controls>
+            <div class="panel-container show">
+                <div class="panel-content">
+                    <!-- datatable start -->
+                    <table id="dt-listlabel" class="table table-bordered table-hover w-100">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Tên nhân viên</th>
+                                <th>Tên dự án</th>
+                                <th>Chi tiết</th>
+                                <th>Đã hoàn thành</th>
+                                <th>Vấn đề tồn đọng</th>
+                                <th>Giải pháp dự kiến</th>
+                                <th>Công việc ngày mai</th>
+                                <th>Ghi chú thêm</th>
+                                <th>Ngày tạo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                    <!-- datatable end -->
+                </div>
             </div>
         </div>
     </div>
-    @*    }
-        else
-        {
-            <h3 class="text-danger">Có lỗi xảy ra !!</h3>
-        }*@
+</div>
+<div id="updatelabel">
 
 </div>
 
+<div id="checkReport">
+
+</div>
+<!-- END Page Content -->
+
 @section FooterSection{
-    <script src="~/AngularJS/Service/ReportAdminService.js"></script>
-    <script src="~/AngularJS/Controller/ReportAdminController.js"></script>
+    <script>
+        function viewDetail(reportData) {
+            console.log(reportData);
+            $.ajax({
+                url: "/ReportAdmin/ViewDetail",
+                method: "POST",
+                data: { model : reportData }
+
+            })
+        };
+
+        $('#dt-listlabel tbody').on('click', 'button', function () {
+            var data1 = table.row($(this).parents('tr')).data();
+            console.log(data1);
+            $.ajax({
+                url: "/Admin/ReportAdmin/ViewDetail",
+                method: "POST",
+                dataType: "html",
+                data: data1,
+                success: function (res) {
+                    $("#updatelabel").html(res);
+                    $("#md-frmLabel").modal("show");
+
+                   @* $("#md-frmLabel").modal("show");*@
+                },
+                error: function (res) {
+                    console.log(res);
+                    alert(res);
+                }
+            })
+        });
+
+        var table = $('#dt-listlabel').DataTable({
+            "ajax": {
+                "url": "/ReportAdmin/GetReportList",
+                "type": "GET",
+                "datatype": "json",
+            },
+            responsive: true,
+            "columns": [
+                @*{
+                    render: function (data, type, row) {
+                        return '<div class="d-flex"><button type = "button" class="btn btn-secondary btn-pills" onclick="viewDetail(\'' + row.data + '\')" > <i class="far fa-edit"></i ></button></div>'
+                    }
+                },*@
+                {
+                    "targets": -1,
+                    "data": null,
+                    "defaultContent": "<button type = 'button' class='btn btn-secondary btn-pills'><i class='far fa-edit'></i></button>",
+                },
+                { "data": "FullName" },
+                { "data": "ProjectCode" },
+                { "data": "WorkDetail" },
+                {
+                    "data": "WorkFinished",
+                    "visible": false
+                },
+                {
+                    "data": "ProblemRemained",
+                    "visible": false
+                },
+                {
+                    "data": "ExpectedSolution",
+                    "visible": false
+                },
+                {
+                    "data": "NextDayWork",
+                    "visible": false
+                },
+                { "data": "Note" },
+                {
+                    render: function (data, type, row) {
+                        return moment(row.DateCreated).format("DD/MM/YYYY");
+                    }
+                },
+
+
+            ],
+            dom: "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'B>>" +
+                "<'row'<'col-sm-12'tr>>" +
+                "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+            buttons: [
+                /*{
+                    extend:    'colvis',
+                    text:      'Column Visibility',
+                    titleAttr: 'Col visibility',
+                    className: 'mr-sm-3'
+                },*/
+                {
+                    text: '<button type="button" style="color: white;" class="btn btn-primary fw-500 pl-6 pr-6">Kiểm tra</button>',
+                    action: function (e, dt, button, config) {
+                        $.ajax({
+                            url: "/Admin/ReportAdmin/CheckReported",
+                            method: "POST",
+                            dataType: "html",
+                            success: function (res) {
+                                $("#checkReport").html(res);
+                                $("#md-CheckReported").modal("show");
+                            },
+                            error: function (res) {
+                            }
+                        })
+                    }
+
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: 'PDF',
+                    titleAttr: 'Generate PDF',
+                    className: 'btn-outline-danger btn-sm mr-1'
+                },
+                {
+                    extend: 'excelHtml5',
+                    text: 'Excel',
+                    titleAttr: 'Generate Excel',
+                    className: 'btn-outline-success btn-sm mr-1'
+                },
+                {
+                    extend: 'csvHtml5',
+                    text: 'CSV',
+                    titleAttr: 'Generate CSV',
+                    className: 'btn-outline-primary btn-sm mr-1'
+                },
+                {
+                    extend: 'copyHtml5',
+                    text: 'Copy',
+                    titleAttr: 'Copy to clipboard',
+                    className: 'btn-outline-primary btn-sm mr-1'
+                },
+                {
+                    extend: 'print',
+                    text: 'Print',
+                    titleAttr: 'Print Table',
+                    className: 'btn-outline-primary btn-sm'
+                }
+            ]
+        })
+
+        @*function event_UpLabel(key) {
+            $.ajax({
+                url: "/Administrator/UpdateLabel",
+                method: "Get",
+                data: { Key: key },
+                success: function (res) {
+                    $("#updatelabel").html(res);
+                    $("#md-frmLabel").modal("show");
+                    $(".btna-updatelabel").removeClass('d-none');
+                    $(".btna-addlabel").addClass('d-none');
+                    $('.valueKey').prop('disabled', true);
+                },
+                error: function (res) {
+                    toastr["error"](res.Message);
+                }
+            })
+        }*@
+    </script>
 
 }

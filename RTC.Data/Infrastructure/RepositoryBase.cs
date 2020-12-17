@@ -105,6 +105,8 @@ namespace RTC.Data.Infrastructure
             return dataContext.Set<T>().AsQueryable();
         }
 
+      
+
         public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
         {
             if (includes != null && includes.Count() > 0)

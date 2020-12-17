@@ -11,5 +11,6 @@ namespace RTC.Data.IRepositories
     {
         IEnumerable<RTC_Employee> ListAllPaging(int page, int pageSize);
         IEnumerable<RTC_Employee> ListAllPaging(string searchString, int page, int pageSize);
+        IEnumerable<RTC_Employee> GetUsersWithList(List<int> listID);
     }
 }

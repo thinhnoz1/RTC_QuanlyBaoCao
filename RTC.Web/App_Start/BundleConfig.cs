@@ -31,8 +31,7 @@ namespace RTC.Web
                         "~/Scripts/angular-route.min.js",
                         "~/Scripts/angular-animate.min.js",
                         "~/Scripts/angular-aria.min.js",*/
-                        "~/AngularJS/App/app.js",
-                        "~/Scripts/dirPagination.js"
+                        "~/AngularJS/App/app.js"
                       ));
             bundles.Add(new StyleBundle("~/bundles/fontawesome").Include(
                 "~/Content/Themes/css/fa-regular.css",
@@ -53,6 +52,7 @@ namespace RTC.Web
                 "~/Content/Themes/js/app.bundle.js",
                 "~/Content/Themes/js/notifications/toastr/toastr.js",
                 "~/Content/Themes/js/datagrid/datatables/datatables.bundle.js",
+                "~/Content/Themes/js/datagrid/datatables/datatables.export.js",
                 "~/Content/Themes/js/formplugins/select2/select2.bundle.js"
                 ));
             bundles.Add(new StyleBundle("~/bundles/Swiper").Include(

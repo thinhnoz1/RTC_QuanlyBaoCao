@@ -26,7 +26,7 @@ namespace RTC.Web.Areas.Admin.Controllers
             else
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Login", action = "Index" }));
+                    RouteValueDictionary(new { controller = "Report", action = "Index", Area = "" }));
             }
 
             base.OnActionExecuting(filterContext);

@@ -82,10 +82,11 @@ namespace RTC.Web.Areas.Admin.Controllers
             }
         }
 
-        public ActionResult Check()
+        public ActionResult GetReportList()
         {
             try
             {
+                CheckReported();
                 var test = reportDetailService.GetReportByDate();
                 if (test != null)
                 {
@@ -93,7 +94,6 @@ namespace RTC.Web.Areas.Admin.Controllers
 
                     //Initialize
                     List<ReportModel> list = new List<ReportModel>();
-                    ReportModel token = new ReportModel();
                     RTC_Project listProject = new RTC_Project();
                     RTC_Employee employee = new RTC_Employee();
 
@@ -103,7 +103,7 @@ namespace RTC.Web.Areas.Admin.Controllers
                         {
                             listProject = projectService.GetByProjectID(item.ProjectID);
                             employee = employeeService.GetByID(item.UserID);
-
+                            ReportModel token = new ReportModel();
                             token.ReportID = item.ReportID;
                             token.ProjectID = item.ProjectID;
                             token.ProjectCode = listProject.ProjectCode;
@@ -120,7 +120,7 @@ namespace RTC.Web.Areas.Admin.Controllers
 
                             list.Add(token);
                         }
-                        return AjaxResult(true, "success", list);
+                        return Json(new { data = list }, JsonRequestBehavior.AllowGet);
                     }
                     else
                         return AjaxResult(false, "error", null);
@@ -133,6 +133,22 @@ namespace RTC.Web.Areas.Admin.Controllers
                 return AjaxResult(false, "error", null, e.Message);
             }
 
+        }
+
+        public ActionResult ViewDetail(ReportModel model)
+        {
+            return PartialView(model);
+        }
+
+        public ActionResult CheckReported()
+        {
+            var reportList = reportDetailService.GetListUserReportedByDate();
+            var listEmployee = employeeService.GetAll();
+            var listID = listEmployee.Select(x => x.UserID).ToList();
+            var secondNotFirst = listID.Except(reportList).ToList();
+            var result = employeeService.GetUsersWithList(secondNotFirst).ToList();
+
+            return PartialView(result);
         }
 
     }

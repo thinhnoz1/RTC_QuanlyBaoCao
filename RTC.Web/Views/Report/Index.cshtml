@@ -217,7 +217,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <div dir-paginate="item in TodayReport | itemsPerPage:itemsPerPage" >
+                            <div ng-repeat="item in TodayReport" >
                                 <div class="label-text">Dự án: {{item.ProjectCode}}</div>
                                 <span class="label-text">Chi tiết công việc: </span>
                                 <p class="label-text ml-3">  {{item.WorkDetail}}</p>

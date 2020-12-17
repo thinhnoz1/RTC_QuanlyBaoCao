@@ -53,6 +53,12 @@ namespace RTC.Service.Services
             return employeeRepository.ListAllPaging(searchString, page, pageSize);
         }
 
+        public IEnumerable<RTC_Employee> GetUsersWithList(List<int> listID)
+        {
+            var list = employeeRepository.GetUsersWithList(listID);
+            return list;
+        }
+
         public void SaveChanges()
         {
             unitOfWork.Commit();
