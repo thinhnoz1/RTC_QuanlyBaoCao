@@ -1,42 +1,189 @@
-﻿<!DOCTYPE html>
-<html>
+﻿
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="Cổng thông tin hỗ trợ sinh viên">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
     <!-- Call App Mode on ios devices -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <!-- Remove Tap Highlight on Windows Phone IE -->
     <meta name="msapplication-tap-highlight" content="no">
-    <title>@ViewBag.Title</title>
-    @Styles.Render("~/Content/css")
+
+    @* <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css">*@
+    <!-- Custom fonts for this template-->
+    @* @Styles.Render("~/Content/css")*@
     @Styles.Render("~/bundles/baseCss")
     <!--FontAwesome-->
     @Styles.Render("~/bundles/fontawesome")
-    <!-- base css -->
-    @*@Styles.Render("~/bundles/baseCss")*@
-    @*<script src="~/Scripts/angular.js"></script>*@
     @RenderSection("HeaderSection", required: false)
 
+    <!-- Custom styles for this template-->
+    <link href="~/Assets/Admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+    @*<link href="~/Content/PagedList.css" rel="stylesheet" />*@
 </head>
-<body style="padding: 0 !important">
+
+<body id="page-top" class="mod-bg-1 nav-function-top" style="padding-top: 0; padding-bottom: 0">
+
+    <!-- BEGIN Page Wrapper -->
+
     <div class="page-wrapper" ng-app="RTCWebApp">
-        <main id="js-page-content" role="main" class="page-content">
-            @RenderBody()
-        </main>
-        <hr />
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year Copyright by Thinhnoz1</p>*@
-        </footer>
+        <div class="page-inner">
+            <!-- BEGIN Left Aside -->
+            @RenderPage("_Sidebar.cshtml")
+            <!-- END Left Aside -->
+            <div class="page-content-wrapper">
+                <!-- BEGIN TOP NAVIGATION -->
+                @RenderPage("_Navigation.cshtml")
+                <!-- END TOP NAVIGATION -->
+                <!-- BEGIN Page Content -->
+                <!-- the #js-page-content id is needed for some plugins to initialize -->
+                <main id="js-page-content" role="main" class="page-content">
+                    @RenderBody()
+                </main>
+                <!-- this overlay is activated only when mobile menu is triggered -->
+                <div class="page-content-overlay" data-action="toggle" data-class="mobile-nav-on"></div> <!-- END Page Content -->
+                <!-- BEGIN Page Footer -->
+                <footer class="page-footer" role="contentinfo">
+                    <div class="d-flex align-items-center flex-1 text-muted">
+                        <span class="hidden-md-down fw-700">2019 © SmartAdmin by&nbsp;<a href='https://www.gotbootstrap.com' class='text-primary fw-500' title='gotbootstrap.com' target='_blank'>gotbootstrap.com</a></span>
+                    </div>
+                    <div>
+                        <ul class="list-table m-0">
+                            <li><a href="#" class="text-secondary fw-700">About</a></li>
+                            <li class="pl-3"><a href="#" class="text-secondary fw-700">License</a></li>
+                            <li class="pl-3"><a href="#" class="text-secondary fw-700">Documentation</a></li>
+                            <li class="pl-3 fs-xl"><a href="#" class="text-secondary" target="_blank"><i class="fal fa-question-circle" aria-hidden="true"></i></a></li>
+                        </ul>
+                    </div>
+                </footer>
+                <!-- END Page Footer -->
+                <!-- BEGIN Color profile -->
+                <!-- this area is hidden and will not be seen on screens or screen readers -->
+                <!-- we use this only for CSS color refernce for JS stuff -->
+                <p id="js-color-profile" class="d-none">
+                    <span class="color-primary-50"></span>
+                    <span class="color-primary-100"></span>
+                    <span class="color-primary-200"></span>
+                    <span class="color-primary-300"></span>
+                    <span class="color-primary-400"></span>
+                    <span class="color-primary-500"></span>
+                    <span class="color-primary-600"></span>
+                    <span class="color-primary-700"></span>
+                    <span class="color-primary-800"></span>
+                    <span class="color-primary-900"></span>
+                    <span class="color-info-50"></span>
+                    <span class="color-info-100"></span>
+                    <span class="color-info-200"></span>
+                    <span class="color-info-300"></span>
+                    <span class="color-info-400"></span>
+                    <span class="color-info-500"></span>
+                    <span class="color-info-600"></span>
+                    <span class="color-info-700"></span>
+                    <span class="color-info-800"></span>
+                    <span class="color-info-900"></span>
+                    <span class="color-danger-50"></span>
+                    <span class="color-danger-100"></span>
+                    <span class="color-danger-200"></span>
+                    <span class="color-danger-300"></span>
+                    <span class="color-danger-400"></span>
+                    <span class="color-danger-500"></span>
+                    <span class="color-danger-600"></span>
+                    <span class="color-danger-700"></span>
+                    <span class="color-danger-800"></span>
+                    <span class="color-danger-900"></span>
+                    <span class="color-warning-50"></span>
+                    <span class="color-warning-100"></span>
+                    <span class="color-warning-200"></span>
+                    <span class="color-warning-300"></span>
+                    <span class="color-warning-400"></span>
+                    <span class="color-warning-500"></span>
+                    <span class="color-warning-600"></span>
+                    <span class="color-warning-700"></span>
+                    <span class="color-warning-800"></span>
+                    <span class="color-warning-900"></span>
+                    <span class="color-success-50"></span>
+                    <span class="color-success-100"></span>
+                    <span class="color-success-200"></span>
+                    <span class="color-success-300"></span>
+                    <span class="color-success-400"></span>
+                    <span class="color-success-500"></span>
+                    <span class="color-success-600"></span>
+                    <span class="color-success-700"></span>
+                    <span class="color-success-800"></span>
+                    <span class="color-success-900"></span>
+                    <span class="color-fusion-50"></span>
+                    <span class="color-fusion-100"></span>
+                    <span class="color-fusion-200"></span>
+                    <span class="color-fusion-300"></span>
+                    <span class="color-fusion-400"></span>
+                    <span class="color-fusion-500"></span>
+                    <span class="color-fusion-600"></span>
+                    <span class="color-fusion-700"></span>
+                    <span class="color-fusion-800"></span>
+                    <span class="color-fusion-900"></span>
+                </p>
+                <!-- END Color profile -->
+
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="@Url.Action("Logout", "ReportAdmin")">Logout</a>@**@
+                </div>
+            </div>
+        </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    @*    <script src="~/Assets/Admin/vendor/jquery/jquery.min.js"></script>*@
+    @* <script src="~/Assets/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>*@
+    @*@Scripts.Render("~/bundles/jquery")
+
     @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/bootstrap.min.js"></script>*@
+
+    @*   <script src="~/Assets/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>*@
+    @* <script src="~/Scripts/bootstrap.bundle.js"></script>*@
     @Scripts.Render("~/bundles/moment.js")
     @Scripts.Render("~/bundles/baseJs")
     @Scripts.Render("~/bundles/angular")
     @RenderSection("FooterSection", required: false)
-</body>
+    <!-- Custom scripts for all pages-->
+    <script type="text/javascript">
+        /* Activate smart panels */
+        $('#js-page-content').smartPanel();
+        var classHolder = document.getElementsByTagName("BODY")[0],
+            /**
+             * Load from localstorage
+             **/
+            themeSettings = (localStorage.getItem('themeSettings')) ? JSON.parse(localStorage.getItem('themeSettings')) :
+                {},
+            themeURL = themeSettings.themeURL || '',
+            themeOptions = themeSettings.themeOptions || '';
+    </script>
 
+</body>
 
 </html>

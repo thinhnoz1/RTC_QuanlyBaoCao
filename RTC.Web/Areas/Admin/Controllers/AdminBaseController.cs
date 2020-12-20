@@ -21,12 +21,12 @@ namespace RTC.Web.Areas.Admin.Controllers
                 {
                     filterContext.Result = new RedirectToRouteResult(new
                         RouteValueDictionary(new { controller = "Report", action = "Index", Area = "" }));
+                    /* filterContext.Result = new RedirectResult("/Admin");*/
                 }
             }
             else
             {
-                filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Report", action = "Index", Area = "" }));
+                filterContext.Result = new RedirectResult("/Login");
             }
 
             base.OnActionExecuting(filterContext);

@@ -86,46 +86,43 @@ namespace RTC.Web.Areas.Admin.Controllers
         {
             try
             {
-                CheckReported();
-                var test = reportDetailService.GetReportByDate();
-                if (test != null)
-                {
-                    test = test.ToList();
+                var test = reportDetailService.GetReportByDate().ToList();
 
+                if (test.Count != 0)
+                {
                     //Initialize
                     List<ReportModel> list = new List<ReportModel>();
                     RTC_Project listProject = new RTC_Project();
                     RTC_Employee employee = new RTC_Employee();
-
-                    if (test.Count() > 0)
+                    foreach (var item in test)
                     {
-                        foreach (var item in test)
-                        {
-                            listProject = projectService.GetByProjectID(item.ProjectID);
-                            employee = employeeService.GetByID(item.UserID);
-                            ReportModel token = new ReportModel();
-                            token.ReportID = item.ReportID;
-                            token.ProjectID = item.ProjectID;
-                            token.ProjectCode = listProject.ProjectCode;
-                            token.ProjectName = listProject.ProjectName;
-                            token.UserID = item.UserID;
-                            token.FullName = employee.FullName;
-                            token.WorkDetail = item.WorkDetail;
-                            token.WorkFinished = item.WorkFinished;
-                            token.ProblemRemained = item.ProblemRemained;
-                            token.ExpectedSolution = item.ExpectedSolution;
-                            token.NextDayWork = item.NextDayWork;
-                            token.Note = item.Note;
-                            token.DateCreated = item.DateCreated;
+                        listProject = projectService.GetByProjectID(item.ProjectID);
+                        employee = employeeService.GetByID(item.UserID);
+                        ReportModel token = new ReportModel();
+                        token.ReportID = item.ReportID;
+                        token.ProjectID = item.ProjectID;
+                        token.ProjectCode = listProject.ProjectCode;
+                        token.ProjectName = listProject.ProjectName;
+                        token.UserID = item.UserID;
+                        token.FullName = employee.FullName;
+                        token.WorkDetail = item.WorkDetail;
+                        token.WorkFinished = item.WorkFinished;
+                        token.ProblemRemained = item.ProblemRemained;
+                        token.ExpectedSolution = item.ExpectedSolution;
+                        token.NextDayWork = item.NextDayWork;
+                        token.Note = item.Note;
+                        token.DateCreated = item.DateCreated;
 
-                            list.Add(token);
-                        }
-                        return Json(new { data = list }, JsonRequestBehavior.AllowGet);
+                        list.Add(token);
                     }
-                    else
-                        return AjaxResult(false, "error", null);
+                    return Json(new { data = list }, JsonRequestBehavior.AllowGet);
                 }
-                else return AjaxResult(false, "error", null);
+                else
+                {
+                    List<ReportModel> list = new List<ReportModel>();
+                    return Json(new { data = list }, JsonRequestBehavior.AllowGet);
+                }
+
 
             }
             catch (Exception e)
@@ -151,5 +148,10 @@ namespace RTC.Web.Areas.Admin.Controllers
             return PartialView(result);
         }
 
+        public ActionResult Logout()
+        {
+            Session.Clear();//remove session
+            return RedirectToAction("Index");
+        }
     }
 }

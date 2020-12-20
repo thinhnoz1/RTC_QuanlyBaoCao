@@ -48,14 +48,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IServices\IAccountService.cs" />
+    <Compile Include="IServices\ICommentListService.cs" />
     <Compile Include="IServices\IEmployeeService.cs" />
     <Compile Include="IServices\IProjectService.cs" />
     <Compile Include="IServices\IReportDetailService.cs" />
+    <Compile Include="IServices\ITaskListService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\CommentListService.cs" />
     <Compile Include="Services\EmployeeService.cs" />
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ReportDetailService.cs" />
+    <Compile Include="Services\TaskListService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RTC.Common\RTC.Common.csproj">

@@ -102,34 +102,52 @@
                     "data": null,
                     "defaultContent": "<button type = 'button' class='btn btn-secondary btn-pills'><i class='far fa-edit'></i></button>",
                 },
-                { "data": "FullName" },
-                { "data": "ProjectCode" },
-                { "data": "WorkDetail" },
+                {
+                    "data": "FullName",
+                    "defaultContent": ""
+                },
+                {
+                    "data": "ProjectCode",
+                    "defaultContent": ""
+                },
+                {
+                    "data": "WorkDetail",
+                    "defaultContent": ""
+                },
                 {
                     "data": "WorkFinished",
-                    "visible": false
+                    "visible": false,
+                    "defaultContent": ""
                 },
                 {
                     "data": "ProblemRemained",
-                    "visible": false
+                    "defaultContent": "",
+                    "visible": false,
                 },
                 {
                     "data": "ExpectedSolution",
-                    "visible": false
+                    "defaultContent": "",
+                    "visible": false,
                 },
                 {
                     "data": "NextDayWork",
-                    "visible": false
+                    "visible": false,
+                    "defaultContent": ""
                 },
-                { "data": "Note" },
+                {
+                    "data": "Note",
+                    "defaultContent": ""
+                },
                 {
                     render: function (data, type, row) {
                         return moment(row.DateCreated).format("DD/MM/YYYY");
-                    }
+                    },
+                    "defaultContent": ""
                 },
 
 
             ],
+          
             dom: "<'row mb-3'<'col-sm-12 col-md-6 d-flex align-items-center justify-content-start'f><'col-sm-12 col-md-6 d-flex align-items-center justify-content-end'B>>" +
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",

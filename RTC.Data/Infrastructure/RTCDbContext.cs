@@ -23,8 +23,10 @@ namespace RTC.Data
         public  DbSet<RTC_ProjectMember> RTC_ProjectMembers { get; set; }
         public  DbSet<RTC_ReportDetail> RTC_ReportDetails { get; set; }
         public  DbSet<RTC_Role> RTC_Roles { get; set; }
-        public  DbSet<RTC_Team> RTC_Team { get; set; }
-        public  DbSet<RTC_TeamMember> RTC_TeamMember { get; set; }
+        public  DbSet<RTC_Team> RTC_Teams { get; set; }
+        public  DbSet<RTC_TeamMember> RTC_TeamMembers { get; set; }
+        public DbSet<RTC_TaskList> RTC_TaskLists { get; set; }
+        public DbSet<RTC_CommentList> RTC_CommentLists { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

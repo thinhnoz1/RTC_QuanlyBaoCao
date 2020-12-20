@@ -56,12 +56,14 @@
     <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\RTC_Account.cs" />
+    <Compile Include="Models\RTC_CommentList.cs" />
     <Compile Include="Models\RTC_Department.cs" />
     <Compile Include="Models\RTC_Employee.cs" />
     <Compile Include="Models\RTC_Project.cs" />
     <Compile Include="Models\RTC_ProjectMember.cs" />
     <Compile Include="Models\RTC_ReportDetail.cs" />
     <Compile Include="Models\RTC_Role.cs" />
+    <Compile Include="Models\RTC_TaskList.cs" />
     <Compile Include="Models\RTC_Team.cs" />
     <Compile Include="Models\RTC_TeamMember.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
