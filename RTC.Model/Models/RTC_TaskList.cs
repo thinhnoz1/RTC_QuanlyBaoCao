@@ -14,24 +14,26 @@ namespace RTC.Model.Models
 
         public int ProjectID { get; set; }
 
-        [Required]
+       
         [StringLength(1000)]
         public string ProjectName { get; set; }
 
         public string TaskName { get; set; }
         public string TaskDescription { get; set; }
 
-        public int UserID { get; set; }
+        public int? UserID { get; set; }
 
         [StringLength(100)]
         public string FullName { get; set; }
 
-        public long ParentID { get; set; }
+        public long? ParentID { get; set; }
         public int Type { get; set; }
         public int Status { get; set; }
 
         public string UrlFiles { get; set; }
-        public DateTime DateCreated { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public int? ColumnOrder { get; set; }
+
     }
 }

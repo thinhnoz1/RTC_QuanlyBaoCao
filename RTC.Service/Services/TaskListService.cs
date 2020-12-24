@@ -16,6 +16,11 @@ namespace RTC.Service.Services
         ITaskListRepository taskListRepository;
         IUnitOfWork unitOfWork;
 
+        public TaskListService(ITaskListRepository _taskListRepository, IUnitOfWork _unitOfWork)
+        {
+            this.taskListRepository = _taskListRepository;
+            this.unitOfWork = _unitOfWork;
+        }
         public void Add(RTC_TaskList task)
         {
              taskListRepository.Add(task);

@@ -1,0 +1,285 @@
+﻿
+@{
+    ViewBag.Title = "ProjectDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<style>
+    p{
+        margin-bottom: 0.7rem !important;
+    }
+    .board {
+        background-color: #e1e1e1;
+        padding: 0.7rem;
+        border-bottom: 1px solid #b5b5b5;
+    }
+    .board-header{
+        @*margin:0 0 5px 0;*@
+        align-items: center;
+        align-content: center;
+    }
+    .board-header-text {
+        color: #172b4d;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .task-card {
+      @*  overflow: hidden;*@
+        position: relative;
+        background-color: #ffffff;
+        display: block;
+        padding: 0;
+    }
+
+    .task-card-title
+    {
+        padding: 3px 8px 2px 8px;
+        background-color: #ffffff;
+        border-radius: 3px;
+        border-bottom: 1px solid #b5b5b5;
+        border-left: 1px solid #b5b5b5;
+        overflow: hidden;
+        text-decoration: none;
+        word-wrap: break-word;
+        color: #172b4d;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0 0 0.5rem 0 !important;
+    }
+
+    .toggle-modal :hover {
+        background-color: #dcdcdc !important;
+        cursor: pointer;
+
+    }
+
+    .task-card:hover .edit-button{
+        opacity: 1;
+        cursor: pointer;
+    }
+
+    .edit-button {
+        margin: 0.5rem;
+        opacity: 0;
+        position: absolute;
+        top: 20%;
+        left: 85%;
+        font-size: 18px;
+        z-index: 10;
+        background-color: rgb(197 197 197 / 61%);
+    }
+    #page-wrap {
+        overflow-x: auto;
+        overflow-y: auto;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    tr {
+        vertical-align: top;
+    }
+
+    .task-container {
+        width: 250px;
+       margin: 0.7rem;
+    }
+    #slimscroll-1 {
+        height: 350px;
+        overflow-y: auto;
+    }
+    .slimScrollDiv {
+        overflow: visible !important;
+    }
+    .p-text {
+        font-size: 14px;
+    }
+
+    .add-task-btn:hover {
+        background-color: #bbbbbb !important;
+    }
+</style>
+
+<div id="page-wrap" class="d-flex" ng-controller="TaskManagerController" ng-cloak>
+
+    <table cellspacing="30">
+        <tbody>
+            <tr>
+                <td ng-repeat="item in ColumnList | orderBy:'ColumnOrder'">
+                    <div class=" task-container" id="col-num-{{item.id}}">
+                        <div id="panel-1" style="border-radius: 10px 10px" class="board d-flex flex-column">
+                            <div class="board-header">
+                                <h2 class="board-header-text">
+                                    @* Đang chờ nhận *@@*<span class="fw-300"><i>Panel</i></span>*@
+                                    {{item.TaskName}}
+                                </h2>
+                            </div>
+                            <div class="board-container show" style="">
+                                <div id="panel-content-1" class="board-content h-100 d-flex flex-column">
+                                    <div id="slimscroll-1" data-distance="4px">
+                                        <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id} ">
+
+                                            <span><i class="fas fa-edit edit-button"></i></span>
+                                            <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" class="toggle-modal" ng-click="GoToTaskDetail(item1.id, item.TaskName)">
+                                                <div class="task-card-title">
+                                                    @*Default panel text something in here a lot of things in here lmao omg 420 no scope that kid omg mom get the camera*@
+                                                    {{item1.TaskName}}
+                                                </div>
+
+                                            </a>
+
+
+                                        </div>
+
+                                    </div>
+                                    <a class="add-task-btn mt-2" style="cursor: pointer" data-toggle="modal" data-target="#modal2" ng-click="GetColumnID(item.id)">
+                                        <i class="fas fa-edit"></i>
+                                        <span>Thêm thẻ nhiệm vụ</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="task-detail">
+        <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content form-background" style=" padding: 0 1.25rem 0 1.25rem;">
+                    <div class="modal-header ">
+                        <div class="w-100">
+                            <i class="fas fa-heading" style="font-weight:700;font-size: 18px;position: absolute;left: 1.25rem;"></i>
+                            <div class="" style=" padding: 0 1rem 0 1rem;">
+                                <h5 class="modal-title edit-on-click-1" style="font-weight:700;font-size: 18px" ng-click="EditOnClick(1)">
+                                    {{TaskDetail.TaskName}}
+                                </h5>
+
+                                <div class="form-group close-all edit-form-1 mt-2 mb-2 w-100" style="display: none">
+                                    <div class="">
+                                        <textarea ng-model="TaskDetail.TaskName" class="form-control input-style" id="taskDescription" rows="5" placeholder="..."></textarea>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" ng-click="FinishEdit(1)">Xong</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <span>trong bảng </span>
+                                    <span class="p-text" style="text-decoration:underline">{{CurrentColumn}}</span>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <button type="button" class="close btn-close" data-dismiss="modal" aria-label="Close" ng-click="ClearModal()">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0;">
+                        <div class="">
+                            <i class="fas fa-paragraph" style="font-weight:700;font-size: 18px;position: absolute;left: 0rem;"></i>
+                            <div class="" style=" padding: 0 1rem 0 1rem;">
+                                <span class="modal-title" style="font-weight:500;font-size: 18px">
+                                    Chi tiết
+                                </span>
+                                <br />
+                                <span class="p-text edit-on-click-2" ng-click="EditOnClick(2)" ng-bind-html="TaskDetail.TaskDescription">
+                                    {{TaskDetail.TaskDescription}}
+                                </span>
+                                
+                                
+                                <div class="form-group close-all edit-form-2 mt-2" style="display: none">
+                                    <div class="">
+                                        <textarea ng-model="TaskDetail.TaskDescription" class="form-control input-style" id="taskDescription" rows="5" placeholder="..."></textarea>
+                                    </div>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" ng-click="FinishEdit(2)">Xong</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal" ng-click="ClearModal()">Close</button>
+                        <button type="button" style="display:none" class="btn btn-primary btn-save" data-dismiss="modal" ng-click="UpdateTask()">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="add-task">
+        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content form-background">
+                    <div class="modal-header">
+                        <h5 class="modal-title edit-on-click" style="font-weight:700;font-size: 18px">
+                            Thêm mới thẻ công việc
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0;">
+                        <div>
+                            <div class="form-group">
+                                <span style="color:red; font-size: 1.2rem">*</span>
+                                <label class="form-label label-text board-header-text" for="example-textarea">Tên thẻ: </label>
+                                <div class="">
+                                    <input type="text" ng-model="Dummy.TaskName" class="form-control input-style no-limit-width work-detail label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></input>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label label-text board-header-text" for="example-textarea">Nội dung thẻ: </label>
+                                <div class="">
+                                    <textarea ng-model="Dummy.TaskDescription" class="form-control input-style no-limit-width work-finished label-text" id="taskDescription" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="AddTask()">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<script src="~/Scripts/jquery-3.5.1.js"></script>
+<script>
+     var projectDetailID = @Model;
+
+    var height = $('#slimscroll-1').outerHeight();
+    console.log("height: " + height);
+
+    @*if (height < 400) {
+        $('#slimscroll-1').css("height": "400px");
+    };*@
+
+</script>
+@section FooterSection{
+
+    <script src="~/AngularJS/Service/TaskManagerService.js"></script>
+    <script src="~/AngularJS/Controller/TaskManagerController.js"></script>
+}

@@ -30,8 +30,8 @@ namespace RTC.Web
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
-                      /*  "~/Scripts/angular-sanitize.min.js",
-                        "~/Scripts/angular-route.min.js",
+                        "~/Scripts/angular-sanitize.js",
+                       /* "~/Scripts/angular-route.min.js",
                         "~/Scripts/angular-animate.min.js",
                         "~/Scripts/angular-aria.min.js",*/
                         "~/AngularJS/App/app.js"
