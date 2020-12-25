@@ -129,12 +129,16 @@ RTCWebApp.controller('TaskManagerController',
         }
 
         $scope.FinishEdit = function (mark) {
-            var text = $scope.TaskDetail.TaskDescription;
-            text = text.replace(/\n\r?/g, '<br />');
-            $scope.TaskDetail.TaskDescription = text;
-            console.log($scope.TaskDetail.TaskDescription);
-            $('.edit-form-' + mark).css({ "display": "none" });
-            $('.edit-on-click-' + mark).css({ "display": "block" });
+            if (mark == 2) {
+                var text = $scope.TaskDetail.TaskDescription;
+                text = text.replace(/\n\r?/g, '<br />');
+                $scope.TaskDetail.TaskDescription = text;
+                console.log($scope.TaskDetail.TaskDescription);
+            };
+            if (mark != 3) {
+                $('.edit-form-' + mark).css({ "display": "none" });
+                $('.edit-on-click-' + mark).css({ "display": "block" });
+            }
             $('.btn-save').css({ "display": "block" });
         }
 
@@ -142,6 +146,7 @@ RTCWebApp.controller('TaskManagerController',
             $('.close-all').css({ "display": "none" });
             $('.edit-on-click-1').css({ "display": "block" });
             $('.edit-on-click-2').css({ "display": "block" });
+            $('.edit-on-click-3').css({ "display": "block" });
         }
 
    

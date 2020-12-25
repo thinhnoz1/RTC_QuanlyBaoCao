@@ -37,6 +37,22 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
+    <LegacyPublishPropertiesPageEnabled>true</LegacyPublishPropertiesPageEnabled>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="ConnectionString-Deployment" Order="1">
+          <Destination Path="workstation id=RtcData.mssql.somee.com%3bpacket size=4096%3buser id=rtc%3bpwd=rtc%40rtca%3bdata source=RtcData.mssql.somee.com%3bpersist security info=False%3binitial catalog=RtcData" />
+        </ObjectGroup>
+        <ObjectGroup Name="RTCConnection-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=DESKTOP-G0I3496%3bInitial Catalog=QuanLyCongViec%3bIntegrated Security=True%3bApplication Name=EntityFramework" ScriptSchema="True" ScriptData="False" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\RTCConnection-Deployment_SchemaOnly.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
