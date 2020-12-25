@@ -46,6 +46,8 @@ RTCWebApp.controller('TaskManagerController',
                 console.log($scope.AllTaskList);
                 console.log($scope.TaskList);
                 console.log($scope.ColumnList);
+                numColumn = $scope.ColumnList.length;
+
             })
         }
 
@@ -78,9 +80,12 @@ RTCWebApp.controller('TaskManagerController',
 
         $scope.UpdateTask = function () {
             $scope.TaskDetail.ProjectID = projectDetailID;
-            var text = $scope.TaskDetail.TaskDescription;
-            text = text.replace(/\n\r?/g, '<br />');
-            $scope.TaskDetail.TaskDescription = text;
+            if ($scope.TaskDetail.TaskDescription != null) {
+                var text = $scope.TaskDetail.TaskDescription;
+                text = text.replace(/\n\r?/g, '<br />');
+                $scope.TaskDetail.TaskDescription = text;
+            }
+
             var request = TaskManagerService.SubmitTask($scope.TaskDetail);
             request.then(function (res) {
                 if (res.data.IsSuccess) {
@@ -94,7 +99,7 @@ RTCWebApp.controller('TaskManagerController',
                 toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
             });
             $('.btn-save').css({ "display": "none" });
-
+           /* $scope.AutoAdjustHeight($scope.TaskDetail.ParentID);*/
         }
 
         $scope.ClearModal = function () {
@@ -115,6 +120,8 @@ RTCWebApp.controller('TaskManagerController',
                 $scope.CurrentColumn = column;
             }
         }
+
+
 
         $scope.ConvertToHtml = function (text) {
             var dummy = text;
@@ -149,11 +156,36 @@ RTCWebApp.controller('TaskManagerController',
             $('.edit-on-click-3').css({ "display": "block" });
         }
 
-   
+        $scope.DeleteTask = function (id) {
+            var r = confirm("Bạn có muốn xóa thẻ này ??");
+            if (r == true) {
+                var request = TaskManagerService.DeleteTask(id);
+                request.then(function (res) {
+                    if (res.data.IsSuccess) {
+                        toastr["success"]("Xóa thẻ thành công !!");
+                        $scope.Init();
+                    }
+                    else
+                        toastr["error"]("Xóa thẻ thất bại :( ")
+                }, function (res) {
+                    toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+                });
+            } else {
+                txt = "You pressed Cancel!";
+            }
+        }
+
+        $scope.AutoAdjustHeight = function (id, count) {
+            if (count > 300) {
+                $('.column-' + id).css({ "height": "400px" });
+            }
+            else {
+                $('.column-' + id).css({ "height": "auto" });
+            };
+        }
 
         $scope.Init = function () {
             $scope.GetTaskList();
-           
         }
         $scope.Init();
         console.log("Controller access");

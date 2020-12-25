@@ -168,10 +168,10 @@
                             </div>
                             <div class="board-container show" style="">
                                 <div id="panel-content-1" class="board-content h-100 d-flex flex-column">
-                                    <div id="slimscroll-1" data-distance="4px">
-                                        <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id} ">
+                                    <div id="slimscroll-1" class="column-{{item.id}} auto-adjust" data-distance="4px">
+                                        <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id}">
 
-                                            <span><i class="fas fa-edit edit-button"></i></span>
+                                            <span ng-click="DeleteTask(item1.id)"><i class="far fa-times-circle edit-button"></i></span>
                                             <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" class="toggle-modal" ng-click="GoToTaskDetail(item1.id, item.TaskName)">
                                                 <div class="task-card-title">
                                                     @*Default panel text something in here a lot of things in here lmao omg 420 no scope that kid omg mom get the camera*@
@@ -210,7 +210,7 @@
                                     <h5 class="modal-title edit-on-click-1" style="font-weight:700;font-size: 18px" ng-click="EditOnClick(1)">
                                         {{TaskDetail.TaskName}}
                                     </h5>
-                                    <span class="edit-button-hover">
+                                    <span class="edit-button-hover" ng-click="EditOnClick(1)">
                                         <i class="fas fa-edit"></i>
                                        
                                         Click để sửa
@@ -230,7 +230,7 @@
                                 <div id="column-select" class="mt-2">
                                     <span>trong bảng </span>
                                     <span class="p-text edit-on-click-3" style="text-decoration:underline" ng-click="EditOnClick(3)">{{CurrentColumn}}</span>
-                                    <span id="column-select-hover">
+                                    <span id="column-select-hover" ng-click="EditOnClick(3)">
                                         <i class="fas fa-edit"></i>
                                        
                                         Click để sửa
@@ -268,7 +268,7 @@
                                     <span class="p-text edit-on-click-2" ng-click="EditOnClick(2)" ng-bind-html="TaskDetail.TaskDescription">
                                         {{TaskDetail.TaskDescription}}
                                     </span>
-                                    <span class="edit-button-hover-1 ml-2">
+                                    <span class="edit-button-hover-1 ml-2" ng-click="EditOnClick(2)">
                                         <i class="fas fa-edit"></i>
                                  
                                         Click để sửa
@@ -352,17 +352,50 @@
 <script>
      var projectDetailID = @Model;
 
-    var height = $('#slimscroll-1').outerHeight();
-    console.log("height: " + height);
+ @*   var height = $('#slimscroll-1').outerHeight();
+    console.log("height: " + height);*@
 
     @*if (height < 400) {
         $('#slimscroll-1').css("height": "400px");
     };*@
-
+    var numColumn = 0;
 </script>
 @section FooterSection{
 
     <script src="~/AngularJS/Service/TaskManagerService.js"></script>
     <script src="~/AngularJS/Controller/TaskManagerController.js"></script>
+    @*<script>
+        function onLoad(loading, loaded) {
+            if (document.readyState === 'complete') {
+                return loaded();
+            }
+            loading();
+            if (window.addEventListener) {
+                window.addEventListener('load', loaded, false);
+            }
+            else if (window.attachEvent) {
+                window.attachEvent('onload', loaded);
+            }
+        };
 
+        onLoad(function () {
+            console.log('I am waiting for the page to be loaded');
+        },
+            function () {
+                console.log('The page is loaded');
+                var height = 0;
+                console.log("numCol = " + numColumn);
+                for (var id = 1; id <= numColumn; id++) {
+                    height = $('.column-' + id).outerHeight();
+                    console.log("height-" + id + ": " + height);
+
+                    if (height > 250) {
+                        $('.column-' + id).css({ "height": "350px" });
+                    }
+                    else {
+                        $('.column-' + id).css({ "height": "auto" });
+                    };
+                }
+            });
+    </script>*@
 }

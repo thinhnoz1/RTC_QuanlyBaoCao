@@ -19,6 +19,15 @@
             })
             return response;
         };
+
+        this.DeleteTask = function (id) {
+            var response = $http({
+                method: 'POST',
+                url: '/TaskManager/DeleteTask',
+                data: { id: id},
+            })
+            return response;
+        };
     },
 
 );

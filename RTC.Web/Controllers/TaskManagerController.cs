@@ -53,6 +53,24 @@ namespace RTC.Web.Controllers
             }
         }
 
+        public ActionResult DeleteTask (long id)
+        {
+            try
+            {
+                if (id != 0)
+                {
+                    taskListService.Delete(id);
+                    taskListService.SaveChanges();
+                    return AjaxResult(true, "success");
+                }
+                else return AjaxResult(false, "error");
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
+
         public ActionResult SubmitTask(RTC_TaskList task)
         {
             try
