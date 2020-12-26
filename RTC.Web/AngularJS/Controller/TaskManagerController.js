@@ -47,15 +47,29 @@ RTCWebApp.controller('TaskManagerController',
                 $scope.TaskList = $scope.AllTaskList.filter(x => x.Type == 2 && x.Status == 1);
                 $scope.ColumnList = $scope.AllTaskList.filter(x => x.Type == 1 && x.Status == -1);
                 $scope.numColumn = $scope.ColumnList.length;
-
+                $scope.LatestOrder = Math.max.apply(Math, $scope.ColumnList.map(function (o) { return o.ColumnOrder; }))
             })
         }
 
         $scope.Cleartext = function () {
-            $scope.Dummy = null;
+            $scope.Dummy = {
+                ProjectID: null,
+                TaskName: null,
+                TaskDescription: null,
+                UserID: null,
+                FullName: null,
+                ParentID: null,
+                Type: 2,
+                Status: 1,
+                UrlFiles: null,
+                DateCreated: null,
+                DateModified: null,
+                ColumnOrder: null,
+            }
         }
 
         $scope.GetColumnID = function (id) {
+            $scope.Cleartext();
             $scope.Dummy.ParentID = id;
         }
 
@@ -64,7 +78,7 @@ RTCWebApp.controller('TaskManagerController',
                 toastr["error"]("Có lỗi xảy ra, không lấy được ID !!");
             }
             else {
-                $scope.Dummy = null;
+                $scope.Cleartext();
                 $scope.Dummy = angular.copy(item);
                 $scope.CurrentPosition = angular.copy(item.ColumnOrder);
             }
@@ -85,7 +99,7 @@ RTCWebApp.controller('TaskManagerController',
                     $scope.Dummy.ParentID = 0;
                     $scope.Dummy.Type = 1;
                     $scope.Dummy.Status = -1;
-                    $scope.Dummy.ColumnOrder = $scope.numColumn +1;
+                    $scope.Dummy.ColumnOrder = $scope.LatestOrder +1;
                 }
                 var request = TaskManagerService.SubmitTask($scope.Dummy);
                 request.then(function (res) {
@@ -199,7 +213,7 @@ RTCWebApp.controller('TaskManagerController',
         $scope.ClearAddColForm = function (mark) {
             $('.edit-form-' + mark).css({ "display": "none" });
             $('.edit-on-click-' + mark).css({ "display": "block" });
-            $scope.Dummy = null;
+            $scope.Cleartext();
         }
 
 

@@ -38,8 +38,9 @@
         height: 300px;
         background: rgba(255,255,255,0.2);
         position: fixed;
-        bottom: 0;
+        bottom: 3rem;
         transform: rotate(-30deg) translate(-100px, 200px);
+        left: 16rem;
     }
 
     .cnxoay2 {
@@ -47,8 +48,8 @@
         height: 500px;
         background: rgba(0, 0, 0, 0.125);
         position: fixed;
-        top: 20px;
-        right: 0;
+        top: 18rem;
+        right: 19rem;
         transform: rotate(-30deg) translate(450px, -400px);
     }
 
@@ -166,8 +167,7 @@
     }
 
     #page-wrap {
-        overflow-x: auto;
-        overflow-y: auto;
+       
         position: absolute;
         top: 0;
         right: 0;
@@ -199,101 +199,95 @@
 </style>
 
 <div id="page-wrap" class="d-flex flex-column gradient-bg" ng-controller="TaskManagerController" ng-cloak>
-   @* <div class="gradient-bg"></div>*@
-    <div class="d-flex on-top mt-3" style="justify-content: center;position: fixed;LEFT: 45%;">
-        <span class="projectName-text mr-2 px-3 text-center" style=" background-color: #e1e1e1; border-radius: 10px 10px;  ">@ViewBag.ProjectName</span>
-    </div>  
-    <div class="d-flex on-top mt-3" style="padding: 0 0.8rem 0 0.8rem">
-        <button type="button" style="padding-bottom: 0.1rem; padding-top: 0.1rem; background-color: #e1e1e1; " class="btn board-header-text btn-addCol edit-on-click-4" ng-click="EditOnClick(4)">Thêm cột</button>
-        <div class="form-group close-all edit-form-4 mt-2 mb-2 w-50" style="display: none">
-            <div class="">
-                <span class="projectName-text mr-2 px-3 text-center" style=" background-color: #e1e1e1; border-radius: 10px 10px;  ">
-                    <span class="board-header-text" style="color:red">* </span> <span class="board-header-text">Tên cột:</span>
-                </span>
-                <textarea ng-model="Dummy.TaskName" class="form-control input-style" id="taskDescription" rows="2" placeholder="..."></textarea>
-            </div>
-            <div class="ml-2 d-flex flex-row">
-                <button type="button" class="btn btn-primary edit-form-4 mr-2" ng-click="AddTask(1)" style="display:none">Thêm</button>
-                <button type="button" class="btn btn-secondary btn-close edit-form-4" ng-click="ClearAddColForm(4)" style="display:none">Close</button>
-            </div>
+    <div style="z-index: 2;  overflow-x: auto;overflow-y: auto; height: 100%">
+        <div class="d-flex on-top mt-3" style="justify-content: center;position: fixed;LEFT: 45%;">
+            <span class="projectName-text mr-2 px-3 text-center" style=" background-color: #e1e1e1; border-radius: 10px 10px;  ">@ViewBag.ProjectName</span>
         </div>
-        
-    </div>
+        <div class="d-flex on-top mt-3" style="padding: 0 0.8rem 0 0.8rem">
+            <button type="button" style="padding-bottom: 0.1rem; padding-top: 0.1rem; background-color: #e1e1e1; " class="btn board-header-text btn-addCol edit-on-click-4" ng-click="EditOnClick(4)">Thêm cột</button>
+            <div class="form-group close-all edit-form-4 mt-2 mb-2 w-50" style="display: none">
+                <div class="">
+                    <span class="projectName-text mr-2 px-3 text-center" style=" background-color: #e1e1e1; border-radius: 10px 10px;  ">
+                        <span class="board-header-text" style="color:red">* </span> <span class="board-header-text">Tên cột:</span>
+                    </span>
+                    <textarea ng-model="Dummy.TaskName" class="form-control input-style" id="taskDescription" rows="2" placeholder="..."></textarea>
+                </div>
+                <div class="ml-2 d-flex flex-row">
+                    <button type="button" class="btn btn-primary edit-form-4 mr-2" ng-click="AddTask(1)" style="display:none">Thêm</button>
+                    <button type="button" class="btn btn-secondary btn-close edit-form-4" ng-click="ClearAddColForm(4)" style="display:none">Close</button>
+                </div>
+            </div>
 
-    <div class="on-top task-board">
-        <table cellspacing="30">
-            <tbody>
-                <tr>
-                    <td ng-repeat="item in ColumnList | orderBy:'ColumnOrder'">
-                        <div class=" task-container" id="col-num-{{item.id}}">
-                            <div id="panel-1" style="border-radius: 10px 10px" class="board d-flex flex-column">
-                                <div class="board-header d-flex flex-row" style="justify-content: space-between;">
-                                    <div class="edit-on-click-5"  ng-click="EditOnClick(5)">
-                                        <h2 class="board-header-text">
-                                            @* Đang chờ nhận *@@*<span class="fw-300"><i>Panel</i></span>*@
-                                            {{item.TaskName}}
-                                        </h2>
-                                    </div>
-                                    <div class="form-group close-all edit-form-5 mt-2 mb-2 w-70" style="display: none">
-                                        <div class="">
-                                            <textarea ng-model="Dummy.TaskName" class="form-control input-style" id="taskDescription" rows="2" placeholder="..."></textarea>
+        </div>
+
+        <div class="on-top task-board">
+            <table cellspacing="30">
+                <tbody>
+                    <tr>
+                        <td ng-repeat="item in ColumnList | orderBy:'ColumnOrder'">
+                            <div class=" task-container" id="col-num-{{item.id}}">
+                                <div id="panel-1" style="border-radius: 10px 10px" class="board d-flex flex-column">
+                                    <div class="board-header d-flex flex-row" style="justify-content: space-between;">
+                                        <div class="edit-on-click-5">
+                                            <h2 class="board-header-text">
+                                                @* Đang chờ nhận *@@*<span class="fw-300"><i>Panel</i></span>*@
+                                                {{item.TaskName}}
+                                            </h2>
                                         </div>
-                                        <div class="ml-2 d-flex flex-row">
-                                            <button type="button" class="btn btn-primary edit-form-4 mr-2" ng-click="UpdateTask()" style="display:none">Sửa</button>
-                                            <button type="button" class="btn btn-secondary btn-close edit-form-4" ng-click="ClearAddColForm(5)" style="display:none">Close</button>
+                                      
+                                        <div class="dropdown">
+                                            <a href="#" class="btn btn-icon" style="bottom: 0.5rem; font-weight: 900; position: relative; font-size: 20px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                ...
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item toggle-modal" data-toggle="modal" data-target="#modal3" ng-click="GetColumnName(item)">Sửa</a>
+                                                <a class="dropdown-item disabled" href="javascript:void(0)">Chuyển toàn bộ thẻ</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a class="dropdown-item text-danger" ng-click="DeleteCol(item.id)">Xóa cột</a>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="dropdown">
-                                        <a href="#" class="btn btn-icon" style="bottom: 0.5rem; font-weight: 900; position: relative; font-size: 20px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            ...
-                                        </a>
-                                        <div class="dropdown-menu">
-                                            <a class="dropdown-item toggle-modal" data-toggle="modal" data-target="#modal3" ng-click="GetColumnName(item)">Sửa</a>
-                                            <a class="dropdown-item disabled" href="javascript:void(0)">Chuyển toàn bộ thẻ</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" ng-click="DeleteCol(item.id)">Xóa cột</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="board-container show" style="">
-                                    <div id="panel-content-1" class="board-content h-100 d-flex flex-column">
-                                        <div id="slimscroll-1" class="column-{{item.id}} auto-adjust" data-distance="4px">
-                                            <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id}">
 
-                                                <span ng-click="DeleteTask(item1.id)"><i class="far fa-times-circle edit-button"></i></span>
-                                                <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" class="toggle-modal" ng-click="GoToTaskDetail(item1, item.TaskName)">
-                                                    <div class="task-card-title">
-                                                        @*Default panel text something in here a lot of things in here lmao omg 420 no scope that kid omg mom get the camera*@
-                                                        {{item1.TaskName}}
-                                                    </div>
+                                    <div class="board-container show" style="">
+                                        <div id="panel-content-1" class="board-content h-100 d-flex flex-column">
+                                            <div id="slimscroll-1" class="column-{{item.id}} auto-adjust" data-distance="4px">
+                                                <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id}">
 
-                                                </a>
+                                                    <span ng-click="DeleteTask(item1.id)"><i class="far fa-times-circle edit-button"></i></span>
+                                                    <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" class="toggle-modal" ng-click="GoToTaskDetail(item1, item.TaskName)">
+                                                        <div class="task-card-title">
+                                                            @*Default panel text something in here a lot of things in here lmao omg 420 no scope that kid omg mom get the camera*@
+                                                            {{item1.TaskName}}
+                                                        </div>
 
+                                                    </a>
+
+
+                                                </div>
 
                                             </div>
-
+                                            <a class="add-task-btn mt-2" style="cursor: pointer" data-toggle="modal" data-target="#modal2" ng-click="GetColumnID(item.id)">
+                                                <i class="fas fa-edit"></i>
+                                                <span>Thêm thẻ nhiệm vụ</span>
+                                            </a>
                                         </div>
-                                        <a class="add-task-btn mt-2" style="cursor: pointer" data-toggle="modal" data-target="#modal2" ng-click="GetColumnID(item.id)">
-                                            <i class="fas fa-edit"></i>
-                                            <span>Thêm thẻ nhiệm vụ</span>
-                                        </a>
                                     </div>
                                 </div>
+
                             </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-
+    @* <div class="gradient-bg"></div>*@
     <div class="cnxoay"></div>
     <div class="cnxoay1"></div>
     <div class="cnxoay2"></div>
 
-    <div id="task-detail">
+    <div id="task-detail" style="z-index: 2500">
         <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content form-background" style=" padding: 0 1.25rem 0 1.25rem;">
@@ -396,7 +390,7 @@
 
     </div>
 
-    <div id="add-task">
+    <div id="add-task" style="z-index: 2500">
         <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content form-background">
@@ -434,9 +428,9 @@
             </div>
         </div>
     </div>
-    
-    
-    <div id="edit-column">
+
+
+    <div id="edit-column" style="z-index: 2500">
         <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content form-background">
@@ -459,9 +453,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label label-text board-header-text" for="example-textarea">Vị trí cột (từ 1-{{numColumn}}): </label>
+                                <label class="form-label label-text board-header-text" for="example-textarea">Vị trí cột (từ 1-{{numColumn + 1}}): </label>
                                 <div class="">
-                                    <input type="number" ng-model="Dummy.ColumnOrder" class="form-control input-style" placeholder=" ..."/>
+                                    <input type="number" ng-model="Dummy.ColumnOrder" class="form-control input-style" placeholder=" ..." />
                                 </div>
                             </div>
 
@@ -474,9 +468,6 @@
             </div>
         </div>
     </div>
-
-
-
 </div>
 
 
