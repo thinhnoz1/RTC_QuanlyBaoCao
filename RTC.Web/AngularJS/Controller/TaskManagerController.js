@@ -6,6 +6,7 @@ RTCWebApp.controller('TaskManagerController',
         $scope.User = [];
         $scope.TaskList = [];
         $scope.ColumnList = [];
+        $scope.numColumn = 0;
         $scope.TaskDetail = {
             ProjectID: null,
             TaskName: null,
@@ -18,6 +19,7 @@ RTCWebApp.controller('TaskManagerController',
             UrlFiles: null,
             DateCreated: null,
             DateModified: null,
+            ColumnOrder: null,
         }
         $scope.Dummy = {
             ProjectID: null,
@@ -31,22 +33,20 @@ RTCWebApp.controller('TaskManagerController',
             UrlFiles: null,
             DateCreated: null,
             DateModified: null,
+            ColumnOrder: null,
         }
 
         $scope.GetTaskList = function (callback1, callback2) {
             if (projectDetailID == null) {
                 toastr['error']("Không tìm thấy");
-                window.location.href = '/TaskManager/Index';
+                /*window.location.href = '/TaskManager/Index';*/
             }
             var request = TaskManagerService.GetAllList(projectDetailID);
             request.then(function (res) {
                 $scope.AllTaskList = res.data.Json;
                 $scope.TaskList = $scope.AllTaskList.filter(x => x.Type == 2 && x.Status == 1);
                 $scope.ColumnList = $scope.AllTaskList.filter(x => x.Type == 1 && x.Status == -1);
-                console.log($scope.AllTaskList);
-                console.log($scope.TaskList);
-                console.log($scope.ColumnList);
-                numColumn = $scope.ColumnList.length;
+                $scope.numColumn = $scope.ColumnList.length;
 
             })
         }
@@ -59,23 +59,50 @@ RTCWebApp.controller('TaskManagerController',
             $scope.Dummy.ParentID = id;
         }
 
-        $scope.AddTask = function () {
-            $scope.Dummy.ProjectID = projectDetailID;
-            var text = $scope.Dummy.TaskDescription;
-            text = text.replace(/\n\r?/g, '<br />');
-            $scope.Dummy.TaskDescription = text;
-            var request = TaskManagerService.SubmitTask($scope.Dummy);
-            request.then(function (res) {
-                if (res.data.IsSuccess) {
-                    toastr["success"]("Thêm thẻ thành công !!");
-                    $scope.Cleartext();
-                    $scope.Init();
+        $scope.GetColumnName = function (item) {
+            if (item.id == null) {
+                toastr["error"]("Có lỗi xảy ra, không lấy được ID !!");
+            }
+            else {
+                $scope.Dummy = null;
+                $scope.Dummy = angular.copy(item);
+                $scope.CurrentPosition = angular.copy(item.ColumnOrder);
+            }
+        }
+
+        $scope.AddTask = function (type) {
+            if ($scope.Dummy.TaskName == null) {
+                toastr["error"]("Vui lòng nhập đủ thông tin trước !! ")
+            }
+            else {
+                $scope.Dummy.ProjectID = projectDetailID;
+                if (type == 2 && $scope.Dummy.TaskDescription != null) {
+                    var text = $scope.Dummy.TaskDescription;
+                    text = text.replace(/\n\r?/g, '<br />');
+                    $scope.Dummy.TaskDescription = text;
                 }
-                else
-                    toastr["error"]("Thêm thẻ thất bại :( ")
-            }, function (res) {
-                toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
-            });
+                if (type == 1) {
+                    $scope.Dummy.ParentID = 0;
+                    $scope.Dummy.Type = 1;
+                    $scope.Dummy.Status = -1;
+                    $scope.Dummy.ColumnOrder = $scope.numColumn +1;
+                }
+                var request = TaskManagerService.SubmitTask($scope.Dummy);
+                request.then(function (res) {
+                    if (res.data.IsSuccess) {
+                        toastr["success"]("Thêm thẻ thành công !!");
+                        $scope.Cleartext();
+                        $scope.Init();
+                    }
+                    else
+                        toastr["error"]("Thêm thẻ thất bại :( ")
+                }, function (res) {
+                    toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+                });
+                if (type == 1) {
+                    $scope.ClearAddColForm(4);
+                }
+            }
         }
 
         $scope.UpdateTask = function () {
@@ -102,6 +129,26 @@ RTCWebApp.controller('TaskManagerController',
            /* $scope.AutoAdjustHeight($scope.TaskDetail.ParentID);*/
         }
 
+        $scope.UpdateColumn = function () {
+            $scope.Dummy.ProjectID = projectDetailID;
+            
+
+            var request = TaskManagerService.EditColumn($scope.Dummy, $scope.CurrentPosition);
+            request.then(function (res) {
+                if (res.data.IsSuccess) {
+                    toastr["success"]("Sửa thẻ thành công !!");
+                    $scope.Cleartext();
+                    $scope.Init();
+                }
+                else
+                    toastr["error"]("Sửa thẻ thất bại :( ")
+            }, function (res) {
+                toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+            });
+         
+            /* $scope.AutoAdjustHeight($scope.Dummy.ParentID);*/
+        }
+
         $scope.ClearModal = function () {
            
             $('#modal1').modal("hide");
@@ -109,13 +156,13 @@ RTCWebApp.controller('TaskManagerController',
             $scope.TaskDetail = null;
         }
 
-        $scope.GoToTaskDetail = function (taskID, column) {
-            if (taskID == null) {
+        $scope.GoToTaskDetail = function (item, column) {
+            if (item.id == null) {
                 toastr["error"]("Có lỗi xảy ra, không lấy được ID !!");
             }
             else {
                 $scope.TaskDetail = null;
-                $scope.TaskDetail = angular.copy($scope.TaskList.find(x => x.id == taskID));
+                $scope.TaskDetail = item;
                 console.log($scope.TaskList);
                 $scope.CurrentColumn = column;
             }
@@ -146,14 +193,22 @@ RTCWebApp.controller('TaskManagerController',
                 $('.edit-form-' + mark).css({ "display": "none" });
                 $('.edit-on-click-' + mark).css({ "display": "block" });
             }
-            $('.btn-save').css({ "display": "block" });
+                $('.btn-save').css({ "display": "block" });
         }
+
+        $scope.ClearAddColForm = function (mark) {
+            $('.edit-form-' + mark).css({ "display": "none" });
+            $('.edit-on-click-' + mark).css({ "display": "block" });
+            $scope.Dummy = null;
+        }
+
 
         $scope.CloseAllEditForm = function () {
             $('.close-all').css({ "display": "none" });
             $('.edit-on-click-1').css({ "display": "block" });
             $('.edit-on-click-2').css({ "display": "block" });
             $('.edit-on-click-3').css({ "display": "block" });
+            $('.edit-on-click-4').css({ "display": "block" });
         }
 
         $scope.DeleteTask = function (id) {
@@ -171,7 +226,26 @@ RTCWebApp.controller('TaskManagerController',
                     toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
                 });
             } else {
-                txt = "You pressed Cancel!";
+                
+            }
+        }
+
+        $scope.DeleteCol = function (id) {
+            var r = confirm("Bạn có muốn xóa cột này ?? Điều này đồng nghĩa với việc bạn sẽ xóa toàn bộ các thẻ trong cột !!");
+            if (r == true) {
+                var request = TaskManagerService.DeleteCol(id);
+                request.then(function (res) {
+                    if (res.data.IsSuccess) {
+                        toastr["success"]("Xóa cột thành công !!");
+                        $scope.Init();
+                    }
+                    else
+                        toastr["error"]("Xóa cột thất bại :( ")
+                }, function (res) {
+                    toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+                });
+            } else {
+                
             }
         }
 

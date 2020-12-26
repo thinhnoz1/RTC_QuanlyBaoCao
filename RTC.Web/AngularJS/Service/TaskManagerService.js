@@ -20,11 +20,30 @@
             return response;
         };
 
+        this.EditColumn = function (task, current) {
+            var response = $http({
+                method: 'POST',
+                url: '/TaskManager/EditColumn',
+                data: { task: task, current: current },
+                dataType: "json"
+            })
+            return response;
+        };
+
         this.DeleteTask = function (id) {
             var response = $http({
                 method: 'POST',
                 url: '/TaskManager/DeleteTask',
                 data: { id: id},
+            })
+            return response;
+        };
+
+        this.DeleteCol = function (id) {
+            var response = $http({
+                method: 'POST',
+                url: '/TaskManager/DeleteColumn',
+                data: { id: id },
             })
             return response;
         };

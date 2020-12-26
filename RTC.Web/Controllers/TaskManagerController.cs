@@ -37,7 +37,9 @@ namespace RTC.Web.Controllers
 
         public ActionResult ProjectDetail ()
         {
-            return View(1);
+            var data = projectService.GetByProjectID(1);
+            ViewBag.ProjectName = data.ProjectCode + " " + data.ProjectName;
+            return View(data.ProjectID);
         }
 
         public ActionResult GetTaskList(int projectID)
@@ -71,6 +73,25 @@ namespace RTC.Web.Controllers
             }
         }
 
+        public ActionResult DeleteColumn(long id)
+        {
+            try
+            {
+                if (id != 0)
+                {
+                    taskListService.Delete(id);
+                    taskListService.DeleteMulti(id);
+                    taskListService.SaveChanges();
+                    return AjaxResult(true, "success");
+                }
+                else return AjaxResult(false, "error");
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
+
         public ActionResult SubmitTask(RTC_TaskList task)
         {
             try
@@ -84,6 +105,57 @@ namespace RTC.Web.Controllers
                 }
                else
                 {
+                   
+                        task.DateModified = DateTime.Now;
+                        taskListService.Update(task);
+                        taskListService.SaveChanges();
+                        return AjaxResult(true);
+                   
+                }
+
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
+        
+        public ActionResult EditColumn(RTC_TaskList task, int? current)
+        {
+            try
+            {
+                if (task.ColumnOrder < current)
+                {
+                    var listCol = taskListService.GetOthersColumn(task.ProjectID, task.ColumnOrder, current).ToList();
+                    foreach (var item in listCol)
+                    {
+                        if (item.id != task.id)
+                        {
+                            item.DateModified = DateTime.Now;
+                            item.ColumnOrder = item.ColumnOrder + 1;
+                            taskListService.Update(item);
+                        }
+                        else break;
+                    }
+                    task.DateModified = DateTime.Now;
+                    taskListService.Update(task);
+                    taskListService.SaveChanges();
+                    return AjaxResult(true);
+                }
+                else
+                {
+                    var listCol = taskListService.GetOthersColumn(task.ProjectID, task.ColumnOrder, current).ToList();
+                    foreach (var item in listCol)
+                    {
+                        if (item.id != task.id)
+                        {
+                            item.DateModified = DateTime.Now;
+                            item.ColumnOrder = item.ColumnOrder - 1;
+                            taskListService.Update(item);
+                            taskListService.SaveChanges();
+                        }
+                        else break;
+                    }
                     task.DateModified = DateTime.Now;
                     taskListService.Update(task);
                     taskListService.SaveChanges();

@@ -12,9 +12,11 @@ namespace RTC.Service.IServices
         void Add(RTC_TaskList task);
         void Update(RTC_TaskList task);
         void Delete(long id);
+        void DeleteMulti(long id);
         RTC_TaskList GetByID(long id);
         void SaveChanges();
         IEnumerable<RTC_TaskList> GetAll(int projectID);
         IEnumerable<RTC_TaskList> GetAll();
+        IEnumerable<RTC_TaskList> GetOthersColumn(int projectID, int? order, int? current);
     }
 }

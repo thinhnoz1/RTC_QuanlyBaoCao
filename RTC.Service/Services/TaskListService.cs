@@ -36,6 +36,21 @@ namespace RTC.Service.Services
             return taskListRepository.GetMulti(x => x.ProjectID.Equals(projectID));
         }
 
+        public IEnumerable<RTC_TaskList> GetOthersColumn (int projectID, int? order, int? current)
+        {
+            if (current > order)
+                return taskListRepository.GetMulti(x => x.ProjectID.Equals(projectID) && x.ColumnOrder >= order && x.ColumnOrder < current);
+            else
+            {
+                return taskListRepository.GetMulti(x => x.ProjectID.Equals(projectID) && x.ColumnOrder <= order && x.ColumnOrder > current);
+            }
+        }
+
+        public void DeleteMulti(long id)
+        {
+            taskListRepository.DeleteMulti(x => x.ParentID == id);
+        }
+
         public IEnumerable<RTC_TaskList> GetAll()
         {
             return taskListRepository.GetAll();
