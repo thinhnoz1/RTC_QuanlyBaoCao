@@ -17,6 +17,9 @@ namespace RTC.Model.Models
         [StringLength(100)]
         public string FullName { get; set; }
 
+        [StringLength(10)]
+        public string ShortName { get; set; }
+
         [Column(TypeName = "date")]
         public DateTime? DateOfBirth { get; set; }
 

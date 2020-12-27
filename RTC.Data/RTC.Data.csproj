@@ -67,6 +67,7 @@
     <Compile Include="IRepositories\IProjectRepository.cs" />
     <Compile Include="IRepositories\IReportDetailRepository.cs" />
     <Compile Include="IRepositories\ITaskListRepository.cs" />
+    <Compile Include="IRepositories\ITaskMemberRepository.cs" />
     <Compile Include="Migrations\202012050304257_InitialDB.cs" />
     <Compile Include="Migrations\202012050304257_InitialDB.designer.cs">
       <DependentUpon>202012050304257_InitialDB.cs</DependentUpon>
@@ -87,6 +88,7 @@
     <Compile Include="Infrastructure\IRepository.cs" />
     <Compile Include="Infrastructure\IUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\TaskMemberRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

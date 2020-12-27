@@ -350,3 +350,6 @@ MigrationBackup/
 .ionide/
 /RTC.Model/Class1.cs
 /RTC.Data/Class1.cs
+/RTCQuanLy.zip
+/RTC.Web/App_Data/QuanLyCongViec.bak
+/RTC.Web/App_Data/QuanLyCongViec.zip

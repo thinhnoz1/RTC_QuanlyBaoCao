@@ -53,6 +53,7 @@
     <Compile Include="IServices\IProjectService.cs" />
     <Compile Include="IServices\IReportDetailService.cs" />
     <Compile Include="IServices\ITaskListService.cs" />
+    <Compile Include="IServices\ITaskMemberService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\CommentListService.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="Services\ProjectService.cs" />
     <Compile Include="Services\ReportDetailService.cs" />
     <Compile Include="Services\TaskListService.cs" />
+    <Compile Include="Services\TaskMemberService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RTC.Common\RTC.Common.csproj">

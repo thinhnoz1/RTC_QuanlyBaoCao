@@ -75,20 +75,22 @@
     }
 
     .task-card {
-      @*  overflow: hidden;*@
+        @*  overflow: hidden;*@
         position: relative;
         background-color: #ffffff;
         display: block;
         padding: 0;
+        border-radius: 3px;
+        border: 1px solid #b5b5b5;
+       @* border-left: 1px solid #b5b5b5;
+        border-top: 1px solid #b5b5b5;*@
     }
 
     .task-card-title
     {
         padding: 3px 8px 2px 8px;
         background-color: #ffffff;
-        border-radius: 3px;
-        border-bottom: 1px solid #b5b5b5;
-        border-left: 1px solid #b5b5b5;
+        
         overflow: hidden;
         text-decoration: none;
         word-wrap: break-word;
@@ -97,11 +99,13 @@
         margin: 0 0 0.5rem 0 !important;
     }
 
-    .toggle-modal :hover {
+    .task-card :hover {
         background-color: #dcdcdc !important;
         cursor: pointer;
 
     }
+
+   
 
     .task-card:hover .edit-button{
         opacity: 1;
@@ -196,6 +200,10 @@
     .add-task-btn:hover {
         background-color: #bbbbbb !important;
     }
+
+    .list-user:hover > .user-del-btn{
+        opacity:1 !important;
+    }
 </style>
 
 <div id="page-wrap" class="d-flex flex-column gradient-bg" ng-controller="TaskManagerController" ng-cloak>
@@ -251,17 +259,24 @@
                                     <div class="board-container show" style="">
                                         <div id="panel-content-1" class="board-content h-100 d-flex flex-column">
                                             <div id="slimscroll-1" class="column-{{item.id}} auto-adjust" data-distance="4px">
-                                                <div class="task-card col-12" ng-repeat="item1 in TaskList | filter: {ParentID: item.id}">
+                                                <div class="task-card col-12 mb-1 toggle-modal" ng-repeat="item1 in TaskList | filter: {ParentID: item.id}" >
 
                                                     <span ng-click="DeleteTask(item1.id)"><i class="far fa-times-circle edit-button"></i></span>
-                                                    <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" class="toggle-modal" ng-click="GoToTaskDetail(item1, item.TaskName)">
+                                                    <a data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" ng-click="GoToTaskDetail(item1, item.TaskName)">
                                                         <div class="task-card-title">
                                                             @*Default panel text something in here a lot of things in here lmao omg 420 no scope that kid omg mom get the camera*@
                                                             {{item1.TaskName}}
                                                         </div>
 
                                                     </a>
+                                                    <div class="d-flex flex-row flex-wrap px-2 mb-1" data-toggle="modal" data-target="#modal1" data-backdrop="static" data-keyboard="false" ng-click="GoToTaskDetail(item1, item.TaskName)">
+                                                        <div class="list-user" ng-repeat="item2 in AllMemberList | filter:  {TaskID: item1.id}" style="margin-right: 0.2rem;" @*ng-if="($scope.TaskMemberIDList != null) == true"*@>
+                                                            <button type="button" class="btn btn-sm btn-outline-primary btn-icon rounded-circle position-relative js-waves-off ">
+                                                                {{item2.ShortName}}
+                                                            </button>
 
+                                                        </div>
+                                                    </div>
 
                                                 </div>
 
@@ -346,7 +361,7 @@
 
 
                     <div class="modal-body" style="padding-top: 0;">
-                        <div class="">
+                        <div class="" style="margin-bottom: 1.25rem">
                             <i class="fas fa-paragraph" style="font-weight:700;font-size: 18px;position: absolute;left: 0rem;"></i>
                             <div class="" style=" padding: 0 1rem 0 1rem;">
                                 <div id="header-modal-1">
@@ -374,10 +389,44 @@
                                         <button type="button" class="btn btn-primary" ng-click="FinishEdit(2)">Xong</button>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
 
+                        <div>
+                            <i class="fas fa-users" style="font-weight:700;font-size: 18px;position: absolute;left: 0rem;"></i>
+                            <div class="" style=" padding: 0 1rem 0 1rem;">
+                                <div id="header-modal-1">
+                                    <span class="modal-title" style="font-weight:500;font-size: 18px">
+                                        Thành viên
+                                    </span>
+                                    <br />
+                                </div>
 
+                                <div class="d-flex flex-row flex-wrap">
+                                    <div class="list-user" ng-repeat="item in AllMemberList | filter: {TaskID : thisTaskID}" style="margin-right: 0.8rem;" @*ng-if="($scope.TaskMemberIDList != null) == true"*@>
+                                        <button type="button" class="btn btn-sm btn-outline-primary " ng-click="DeleteWorker(item.id)">
+                                            {{item.FullName}}
+                                        </button>
+                                       
+                                    </div>
+                                </div>
+
+                              
+                                <div class="form-group mt-2">
+                                    <label class="p-text">Thêm nhân viên:</label> 
+                                    <div class="mb-1" ng-if="($scope.TaskMemberIDList == null) == true">
+                                        <button type="button" style="margin-right: 0.8rem" class="btn btn-sm btn-outline-primary" ng-repeat="item in TempList" ng-click="RemoveWorker(item.UserID)">
+                                            {{item.UserID}}
+                                        </button>
+                                    </div>
+                                    <select ng-model="Temp.UserID" class="select2 form-control col-md-9 col-sm-12 " style="background:#36393f">
+                                        <option ng-repeat="item in EmployeeList" value="{{item.UserID}}">{{item.FullName}}</option>
+                                    </select>
+                                    <button type="button" class="btn btn-primary" ng-click="AddWorker()">Thêm</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-close" data-dismiss="modal" ng-click="ClearModal()">Close</button>
@@ -408,14 +457,14 @@
                                 <span style="color:red; font-size: 1.2rem">*</span>
                                 <label class="form-label label-text board-header-text" for="example-textarea">Tên thẻ: </label>
                                 <div class="">
-                                    <input type="text" ng-model="Dummy.TaskName" class="form-control input-style no-limit-width work-detail label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..." />
+                                    <input type="text" ng-model="Dummy.TaskName" class="form-control input-style no-limit-width work-detail label-text" rows="5" placeholder="Để lại lời nhắn của bạn ..." />
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label label-text board-header-text" for="example-textarea">Nội dung thẻ: </label>
                                 <div class="">
-                                    <textarea ng-model="Dummy.TaskDescription" class="form-control input-style no-limit-width work-finished label-text" id="taskDescription" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="Dummy.TaskDescription" class="form-control input-style no-limit-width work-finished label-text" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
@@ -481,6 +530,14 @@
     var projectName = '@ViewBag.ProjectName';
     console.log(projectName);
 
+    $(document).ready(function () {
+        $(function () {
+            $('.select2').select2({
+                dropdownParent: $('#modal1'),
+            });
+
+        });
+    });
  @*   var height = $('#slimscroll-1').outerHeight();
     console.log("height: " + height);*@
 

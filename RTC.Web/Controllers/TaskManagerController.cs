@@ -17,16 +17,19 @@ namespace RTC.Web.Controllers
         private readonly IEmployeeService employeeService;
         private readonly ITaskListService taskListService;
         private readonly ICommentListService commentListService;
+        private readonly ITaskMemberService taskMemberService;
         public TaskManagerController(
           IProjectService _projectService,
           IEmployeeService _employeeService,
           ITaskListService _taskListService,
-          ICommentListService _commentListService)
+          ICommentListService _commentListService,
+          ITaskMemberService _taskMemberService)
         {
             this.projectService = _projectService;
             this.employeeService = _employeeService;
             this.taskListService = _taskListService;
             this.commentListService = _commentListService;
+            this.taskMemberService = _taskMemberService;
         }
 
         // GET: TaskManager
@@ -62,6 +65,8 @@ namespace RTC.Web.Controllers
                 if (id != 0)
                 {
                     taskListService.Delete(id);
+                    taskMemberService.DeleteMulti(id);
+                    taskMemberService.SaveChanges();
                     taskListService.SaveChanges();
                     return AjaxResult(true, "success");
                 }
@@ -73,7 +78,7 @@ namespace RTC.Web.Controllers
             }
         }
 
-        public ActionResult DeleteColumn(long id)
+        public ActionResult DeleteColumn(long id, List<RTC_TaskList> listChild)
         {
             try
             {
@@ -81,6 +86,12 @@ namespace RTC.Web.Controllers
                 {
                     taskListService.Delete(id);
                     taskListService.DeleteMulti(id);
+                    foreach (var i in listChild)
+                    {
+                        taskMemberService.DeleteMulti(i.id);
+                    }
+
+                    taskMemberService.SaveChanges();
                     taskListService.SaveChanges();
                     return AjaxResult(true, "success");
                 }
@@ -167,6 +178,84 @@ namespace RTC.Web.Controllers
             {
                 return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
             }
+        }
+
+        public ActionResult GetListEmployee()
+        {
+            return AjaxResult(true, "success", employeeService.GetAll().ToList());
+        }
+
+        public ActionResult GetListTaskMember(long taskID)
+        {
+            try
+            {
+                if (taskID != null)
+                {
+                    return AjaxResult(true, "success", taskMemberService.GetAll(taskID).ToList());
+                }
+                else
+                {
+                    return AjaxResult(false, "Không lấy được TaskID", null);
+                }
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
+
+        public ActionResult GetAllListMember(int projectID)
+        {
+            try
+            {
+                    return AjaxResult(true, "success", taskMemberService.GetAll(projectID).ToList());
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+        }
+
+        public ActionResult AddWorker (List<RTC_TaskMember> listmember)
+        {
+            try
+            {
+                if (listmember.Count > 0)
+                {
+                    foreach (var item in listmember)
+                    {
+                        /*taskMemberService.DeleteMulti(listmember[0].TaskID);
+                        taskMemberService.SaveChanges();*/
+                        taskMemberService.Add(item);
+                        taskMemberService.SaveChanges();
+                    }
+                    return AjaxResult(true);
+                }
+                else 
+                {
+                    return AjaxResult(false, "Không có dữ liệu đầu vào !");
+                }
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Lỗi hệ thống", null, e.Message);
+            }
+            
+        }
+
+        public ActionResult RemoveWorker (long id)
+        {
+            try
+            {
+                taskMemberService.Delete(id);
+                taskMemberService.SaveChanges();
+                return AjaxResult(true);
+            }
+            catch (Exception e)
+            {
+                return AjaxResult(false, "Xóa thất bại");
+            }
+          
         }
     }
 }

@@ -30,6 +30,10 @@ namespace RTC.Service.Services
         {
             taskListRepository.Delete(id);
         }
+        public void DeleteMulti(long id)
+        {
+            taskListRepository.DeleteMulti(x => x.ParentID == id);
+        }
 
         public IEnumerable<RTC_TaskList> GetAll(int projectID)
         {
@@ -46,10 +50,6 @@ namespace RTC.Service.Services
             }
         }
 
-        public void DeleteMulti(long id)
-        {
-            taskListRepository.DeleteMulti(x => x.ParentID == id);
-        }
 
         public IEnumerable<RTC_TaskList> GetAll()
         {

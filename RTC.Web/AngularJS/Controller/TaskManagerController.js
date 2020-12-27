@@ -6,6 +6,14 @@ RTCWebApp.controller('TaskManagerController',
         $scope.User = [];
         $scope.TaskList = [];
         $scope.ColumnList = [];
+        $scope.MemberList = [];
+        $scope.TempList = [];
+        $scope.Temp = {
+            UserID: null,
+            TaskID: null,
+            ProjectID: null,
+        };
+
         $scope.numColumn = 0;
         $scope.TaskDetail = {
             ProjectID: null,
@@ -99,14 +107,14 @@ RTCWebApp.controller('TaskManagerController',
                     $scope.Dummy.ParentID = 0;
                     $scope.Dummy.Type = 1;
                     $scope.Dummy.Status = -1;
-                    $scope.Dummy.ColumnOrder = $scope.LatestOrder +1;
+                    $scope.Dummy.ColumnOrder = $scope.LatestOrder + 1;
                 }
                 var request = TaskManagerService.SubmitTask($scope.Dummy);
                 request.then(function (res) {
                     if (res.data.IsSuccess) {
                         toastr["success"]("Thêm thẻ thành công !!");
                         $scope.Cleartext();
-                        $scope.Init();
+                        $scope.GetTaskList();
                     }
                     else
                         toastr["error"]("Thêm thẻ thất bại :( ")
@@ -132,42 +140,63 @@ RTCWebApp.controller('TaskManagerController',
                 if (res.data.IsSuccess) {
                     toastr["success"]("Sửa thẻ thành công !!");
                     $scope.ClearModal();
-                    $scope.Init();
                 }
                 else
                     toastr["error"]("Sửa thẻ thất bại :( ")
             }, function (res) {
                 toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
             });
+            if ($scope.TempList.length > 0) {
+                var request = TaskManagerService.AddWorker($scope.TempList);
+                request.then(function (res) {
+                    if (res.data.IsSuccess) {
+                        toastr["success"]("Giao việc thành công !!");
+                        $scope.ClearModal();
+                        $scope.ClearTempList();
+                        $scope.Init();
+                    }
+                    else {
+                        toastr["error"]("Giao việc thất bại :( ");
+                        $scope.ClearTempList();
+                    }
+                }, function (res) {
+                    toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+                });
+            }
+            else {
+                $scope.GetTaskList();
+            }
             $('.btn-save').css({ "display": "none" });
-           /* $scope.AutoAdjustHeight($scope.TaskDetail.ParentID);*/
+            /* $scope.AutoAdjustHeight($scope.TaskDetail.ParentID);*/
         }
 
         $scope.UpdateColumn = function () {
             $scope.Dummy.ProjectID = projectDetailID;
-            
+
 
             var request = TaskManagerService.EditColumn($scope.Dummy, $scope.CurrentPosition);
             request.then(function (res) {
                 if (res.data.IsSuccess) {
                     toastr["success"]("Sửa thẻ thành công !!");
                     $scope.Cleartext();
-                    $scope.Init();
+                    $scope.GetTaskList();
                 }
                 else
                     toastr["error"]("Sửa thẻ thất bại :( ")
             }, function (res) {
                 toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
             });
-         
+
             /* $scope.AutoAdjustHeight($scope.Dummy.ParentID);*/
         }
 
         $scope.ClearModal = function () {
-           
+
             $('#modal1').modal("hide");
             $scope.CloseAllEditForm();
+            $scope.ClearTempList();
             $scope.TaskDetail = null;
+            $scope.thisTaskID = null;
         }
 
         $scope.GoToTaskDetail = function (item, column) {
@@ -177,8 +206,8 @@ RTCWebApp.controller('TaskManagerController',
             else {
                 $scope.TaskDetail = null;
                 $scope.TaskDetail = item;
-                console.log($scope.TaskList);
                 $scope.CurrentColumn = column;
+                $scope.GetListTaskMember(item.id);
             }
         }
 
@@ -190,7 +219,7 @@ RTCWebApp.controller('TaskManagerController',
             text = dummy;
         }
 
-       
+
         $scope.EditOnClick = function (mark) {
             $('.edit-on-click-' + mark).css({ "display": "none" });
             $('.edit-form-' + mark).css({ "display": "block" });
@@ -201,13 +230,12 @@ RTCWebApp.controller('TaskManagerController',
                 var text = $scope.TaskDetail.TaskDescription;
                 text = text.replace(/\n\r?/g, '<br />');
                 $scope.TaskDetail.TaskDescription = text;
-                console.log($scope.TaskDetail.TaskDescription);
             };
             if (mark != 3) {
                 $('.edit-form-' + mark).css({ "display": "none" });
                 $('.edit-on-click-' + mark).css({ "display": "block" });
             }
-                $('.btn-save').css({ "display": "block" });
+            $('.btn-save').css({ "display": "block" });
         }
 
         $scope.ClearAddColForm = function (mark) {
@@ -240,14 +268,15 @@ RTCWebApp.controller('TaskManagerController',
                     toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
                 });
             } else {
-                
+
             }
         }
 
         $scope.DeleteCol = function (id) {
             var r = confirm("Bạn có muốn xóa cột này ?? Điều này đồng nghĩa với việc bạn sẽ xóa toàn bộ các thẻ trong cột !!");
             if (r == true) {
-                var request = TaskManagerService.DeleteCol(id);
+                var listChild = $scope.TaskList.filter(x => x.ParentID == id);
+                var request = TaskManagerService.DeleteCol(id, listChild);
                 request.then(function (res) {
                     if (res.data.IsSuccess) {
                         toastr["success"]("Xóa cột thành công !!");
@@ -259,7 +288,7 @@ RTCWebApp.controller('TaskManagerController',
                     toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
                 });
             } else {
-                
+
             }
         }
 
@@ -272,13 +301,162 @@ RTCWebApp.controller('TaskManagerController',
             };
         }
 
-        $scope.Init = function () {
+        $scope.GetEmployeeList = function (callback) {
+            var request = TaskManagerService.GetListEmployee();
+            request.then(function (res) {
+                $scope.EmployeeList = res.data.Json;
+                if (typeof callback === "function")
+                    callback();
+            }, function (res) {
+                toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+            });
+
+        }
+
+        $scope.GetListTaskMember = function (taskID) {
+            $scope.TaskMemberIDList = [];
+            /*$scope.MemberList = [];*/
+            if (taskID != null) {
+                $scope.TaskMemberIDList = $scope.FirstListTaskMember.filter(x => x.TaskID == taskID)
+                if ($scope.TaskMemberIDList != null && $scope.TaskMemberIDList.length > 0) {
+                    $scope.AnotherTemp = {
+                        id: null,
+                        UserID: null,
+                        FullName: null,
+                        ShortName: null,
+                        TaskID: null,
+                    };
+                    $scope.thisTaskID = taskID;
+                }
+            }
+            else {
+                toastr["error"]("Không lấy được ID!!");
+            }
+        }
+
+        $scope.GetFirstListMember = function () {
+            $scope.FirstListTaskMember = [];
+            $scope.AllMemberList = [];
+            var request = TaskManagerService.GetAllListMember(projectDetailID);
+            request.then(function (res) {
+                $scope.FirstListTaskMember = res.data.Json;
+                if ($scope.FirstListTaskMember != null && $scope.FirstListTaskMember.length > 0) {
+                    $scope.AnotherTemp1 = {
+                        id: null,
+                        UserID: null,
+                        FullName: null,
+                        ShortName: null,
+                        TaskID: null,
+                    };
+                    for (var i = 0; i < $scope.FirstListTaskMember.length; i++) {
+                        $scope.AnotherTemp1.TaskID = $scope.FirstListTaskMember[i].TaskID;
+                        $scope.AnotherTemp1.UserID = $scope.FirstListTaskMember[i].UserID;
+                        $scope.AnotherTemp1.id = $scope.FirstListTaskMember[i].id;
+                        var result = $scope.EmployeeList.filter(x => x.UserID == $scope.FirstListTaskMember[i].UserID);
+                        $scope.AnotherTemp1.FullName = result[0].FullName;
+                        $scope.AnotherTemp1.ShortName = result[0].FullName.substring(0, 2);
+                        $scope.AllMemberList.push($scope.AnotherTemp1);
+                        $scope.AnotherTemp1 = {
+                            id: null,
+                            UserID: null,
+                            FullName: null,
+                            ShortName: null,
+                            TaskID: null,
+                        };
+                    }
+                }
+
+            }, function (res) {
+                toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+            });
+        }
+
+        $scope.AddWorker = function () {
+            if ($scope.Temp.UserID != null) {
+                if ($scope.TaskMemberIDList.length == 0) {
+                    var result2 = $scope.TempList.filter(x => x.UserID == $scope.Temp.UserID);
+                    if (result2.length == 0) {
+                        $scope.Temp.ProjectID = projectDetailID;
+                        $scope.Temp.TaskID = angular.copy($scope.TaskDetail.id);
+                        $scope.TempList.push($scope.Temp);
+                        $scope.Temp = {
+                            UserID: null,
+                            TaskID: null,
+                            ProjectID: null,
+                        };
+                    }
+                }
+                //th nếu result đã có trong MemberList
+                //th nếu task đã được giao MemberList != null
+                else {
+                    var result1 = $scope.TaskMemberIDList.filter(x => x.UserID == $scope.Temp.UserID);
+                    if (result1.length == 0) {
+                        var result2 = $scope.TempList.filter(x => x.UserID == $scope.Temp.UserID);
+                        if (result2.length == 0) {
+                            $scope.Temp.ProjectID = projectDetailID;
+                            $scope.Temp.TaskID = angular.copy($scope.TaskDetail.id);
+                            $scope.TempList.push($scope.Temp);
+                            $scope.Temp = {
+                                UserID: null,
+                                TaskID: null,
+                                ProjectID: null,
+                            };
+                        }
+
+                    }
+                }
+                $('.btn-save').css({ "display": "block" });
+            }
+            else {
+                toastr["error"]("Vui lòng chọn nhân viên mà bạn muốn thêm trước !");
+            }
+
+        }
+
+        $scope.RemoveWorker = function (userID) {
+            $scope.TempList = $scope.TempList.filter(x => x.UserID != userID);
+        };
+
+        $scope.DeleteWorker = function (id) {
+            var r = confirm("Bạn có chắc muốn xóa người này khỏi công việc ? Một khi đã xóa là không thể hoàn tác lại");
+            if (r == true) {
+                var request = TaskManagerService.DeleteWorker(id);
+                request.then(function (res) {
+                    if (res.data.IsSuccess) {
+                        toastr["success"]("Xóa thành công !!");
+                        $scope.GetFirstListMember();
+                    }
+                    else
+                        toastr["error"]("Xóa thất bại :( ")
+                }, function (res) {
+                    toastr["error"]("Có lỗi do hệ thống xảy ra, bạn đen lắm");
+                });
+            } else {
+
+            }
+        };
+
+        $scope.ClearTempList = function () {
+            $scope.Temp = {
+                UserID: null,
+                TaskID: null,
+                ProjectID: null,
+            };
+            $scope.TempList = [];
+        }
+
+        $scope.Init1 = function () {
             $scope.GetTaskList();
         }
-        $scope.Init();
+
+        $scope.Init = function () {
+            $scope.GetTaskList();
+            $scope.GetFirstListMember();
+        }
+        $scope.GetEmployeeList($scope.Init);
         console.log("Controller access");
 
 
-    
+
     }
 );
