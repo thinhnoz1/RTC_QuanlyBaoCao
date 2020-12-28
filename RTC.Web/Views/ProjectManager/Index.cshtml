@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #page-wrap {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    .gradient-bg {
+        background: linear-gradient(to right top, #f4ff41, #ff5353 );
+        position: relative;
+    }
+
+    .cnxoay {
+        width: 300px;
+        height: 500px;
+        background: rgba(255,255,255,0.2);
+        position: fixed;
+        top: 0;
+        transform: rotate(-30deg) translate(-100px, -200px);
+    }
+
+    .cnxoay1 {
+        width: 500px;
+        height: 300px;
+        background: rgba(255,255,255,0.2);
+        position: fixed;
+        bottom: 3rem;
+        transform: rotate(-30deg) translate(-100px, 200px);
+        left: 16rem;
+    }
+
+    .cnxoay2 {
+        width: 300px;
+        height: 500px;
+        background: rgba(0, 0, 0, 0.125);
+        position: fixed;
+        top: 18rem;
+        right: 19rem;
+        transform: rotate(-30deg) translate(450px, -400px);
+    }
+
+    .body-container {
+        width: 100%;
+        padding: 0 1.5rem 5rem;
+    }
+
+    .contact-body {
+        position: relative;
+    }
+
+    .form {
+        background: #eef8ff;
+        border-color: #cacaca;
+        padding: 2rem !important;
+        border-radius: 7px;
+        -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+        box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+    }
+
+    @@media (max-width: 600px) {
+        .form {
+            background: #36393f;
+            border-color: #262626;
+            padding: 1rem !important;
+            border-radius: 7px;
+            -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+            box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
+        }
+    }
+
+    .form-background {
+        background: #eef8ff;
+    }
+
+    @@media (max-width: 950px) {
+
+
+        .body-container {
+            margin: 0 auto;
+            width: 100%;
+            max-width: 800px !important;
+            padding: 0 1.5rem 5rem;
+        }
+    }
+</style>
+
+<div id="page-wrap" class="d-flex flex-column gradient-bg">
+    <div style="z-index: 2;  overflow-x: auto;overflow-y: auto; height: 100%">
+        <div class="contact-body">
+            <div class="body-container d-flex flex-wrap">
+                <!-- || Form -->
+                <form class="form table-bordered form-background col-lg-10 col-xs-12" novalidate name="formReport" style=" margin: 1rem auto">
+
+                    
+                </form>
+                <!-- -->
+
+
+            </div>
+        </div>
+    </div>
+    @* <div class="gradient-bg"></div>*@
+    <div class="cnxoay"></div>
+    <div class="cnxoay1"></div>
+    <div class="cnxoay2"></div>
+
+
+  
+
+</div>
+

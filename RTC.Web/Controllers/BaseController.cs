@@ -25,6 +25,19 @@ namespace RTC.Web.Controllers
             base.OnActionExecuting(filterContext);
         }
 
+        public ActionResult GetIdentity()
+        {
+            var session = (AccountLogin)Session[CommonConstants.USER_SESSION];
+            if (session != null)
+            {
+                 return AjaxResult(true, "success", session);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+
         protected override void Initialize(System.Web.Routing.RequestContext requestContext)
         {
             var controller = requestContext.RouteData.Values["controller"].ToString().Trim().ToUpper();

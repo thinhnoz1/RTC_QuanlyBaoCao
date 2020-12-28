@@ -207,7 +207,6 @@ RTCWebApp.controller('TaskManagerController',
                 $scope.TaskDetail = null;
                 $scope.TaskDetail = item;
                 $scope.CurrentColumn = column;
-                $scope.GetListTaskMember(item.id);
             }
         }
 
@@ -313,26 +312,6 @@ RTCWebApp.controller('TaskManagerController',
 
         }
 
-        $scope.GetListTaskMember = function (taskID) {
-            $scope.TaskMemberIDList = [];
-            /*$scope.MemberList = [];*/
-            if (taskID != null) {
-                $scope.TaskMemberIDList = $scope.FirstListTaskMember.filter(x => x.TaskID == taskID)
-                if ($scope.TaskMemberIDList != null && $scope.TaskMemberIDList.length > 0) {
-                    $scope.AnotherTemp = {
-                        id: null,
-                        UserID: null,
-                        FullName: null,
-                        ShortName: null,
-                        TaskID: null,
-                    };
-                    $scope.thisTaskID = taskID;
-                }
-            }
-            else {
-                toastr["error"]("Không lấy được ID!!");
-            }
-        }
 
         $scope.GetFirstListMember = function () {
             $scope.FirstListTaskMember = [];
@@ -389,7 +368,7 @@ RTCWebApp.controller('TaskManagerController',
                 //th nếu result đã có trong MemberList
                 //th nếu task đã được giao MemberList != null
                 else {
-                    var result1 = $scope.TaskMemberIDList.filter(x => x.UserID == $scope.Temp.UserID);
+                    var result1 = $scope.FirstListTaskMember.filter(x => x.UserID == $scope.Temp.UserID && x.TaskID == $scope.TaskDetail.id);
                     if (result1.length == 0) {
                         var result2 = $scope.TempList.filter(x => x.UserID == $scope.Temp.UserID);
                         if (result2.length == 0) {

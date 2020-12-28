@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout1.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -41,9 +41,7 @@
 
     /* || Contact-body */
     .body-container {
-        margin: 0 auto;
         width: 100%;
-        max-width: 1080px;
         padding: 0 1.5rem 5rem;
     }
 
@@ -53,8 +51,9 @@
 
     /* || FORM */
     .label-text {
-        color: white;
-        font-size:1rem;
+        color: #3d3d3d;
+        font-size: 1rem;
+        font-weight: 500
     }
 
     .form-group {
@@ -62,15 +61,15 @@
     }
 
     .input-style {
-        border-color: #262626;
-        background: #36393f;
+        border-color: #cacaca;
+        background: #eef8ff;
         border-radius: 7px;
         color: white;
     }
 
     .form {
-        background: #36393f;
-        border-color: #262626;
+        background: #eef8ff;
+        border-color: #cacaca;
         padding: 2rem !important;
         border-radius: 7px;
         -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
@@ -84,8 +83,8 @@
 
     @@media (max-width: 600px) {
         .form {
-            background: #36393f;
-            border-color: #262626;
+            background: #eef8ff;
+            border-color: #cacaca;
             padding: 1rem !important;
             border-radius: 7px;
             -webkit-box-shadow: 0 50px 100px -20px rgba(50,50,93,.25), 0 30px 60px -30px rgba(0,0,0,.3), 0 -18px 60px -10px rgba(0,0,0,.025);
@@ -114,23 +113,19 @@
     <div class="site-container">
         <div class="site-content">
             @*/* || Gradient Background */*@
-            <div class="gradient-background"></div>
 
             @*/* || Contact-body */*@
             <div class="contact-body">
                 <div class="body-container d-flex flex-wrap">
                     <!-- || Form -->
-                    <form class="form table-bordered form-background col-lg-12 col-xs-12" novalidate name="formReport" style="margin-top: 4rem; margin-bottom: 4rem;">
-                        <div class="">
-                            <a href="/Admin" style="color:white" >Trở về trang admin</a>
-                        </div>
-                        
+                    <form class="form table-bordered form-background col-lg-12 col-xs-12" novalidate name="formReport" style="margin-top: 1rem; margin-bottom: 1rem;">
+                     
                         <div class="label-text text-center text-uppercase">
-                            <span style="font-size: 2rem; color: orange">Báo cáo hàng ngày</span>
+                            <span style="font-size: 2rem; color: #4c4c4c">Báo cáo hàng ngày</span>
                         </div>
 
                         <div class="label-text text-center">
-                            <span>Xin chào </span> <span style="color:#ffd300">{{User.FullName}} </span> <span class="label-text">(Nếu không phải bạn ?</span> <a href="@Url.Action("Logout","Report")" style="color: white;padding:0.2rem !important" class="btn btn-warning ml-2">Đăng xuất</a><span>  )</span>
+                            <span>Xin chào </span> <span style="color:#ffd300">{{User.FullName}} </span>
 
                         </div>
 
@@ -153,41 +148,41 @@
                                 <span style="color:red; font-size: 1.2rem">*</span>
                                 <label class="form-label label-text" for="example-textarea">Chi tiết công việc</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.WorkDetail" class="form-control input-style no-limit-width work-detail label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.WorkDetail" class="form-control input-style no-limit-width work-detail label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label label-text" for="example-textarea">Công việc đã hoàn thành</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.WorkFinished" class="form-control input-style no-limit-width work-finished label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.WorkFinished" class="form-control input-style no-limit-width work-finished label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label label-text" for="example-textarea">Vấn đề tồn đọng</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.ProblemRemained" class="form-control input-style no-limit-width problem-remained label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.ProblemRemained" class="form-control input-style no-limit-width problem-remained label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label label-text" for="example-textarea">Giải pháp dự kiến (nếu có)</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.ExpectedSolution" class="form-control input-style no-limit-width expected-solution label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.ExpectedSolution" class="form-control input-style no-limit-width expected-solution label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label label-text" for="example-textarea">Công việc dự kiến ngày mai</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.NextDayWork" class="form-control input-style no-limit-width upcoming-work label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.NextDayWork" class="form-control input-style no-limit-width upcoming-work label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="form-label label-text" for="example-textarea">Ghi chú thêm</label>
                                 <div class="">
-                                    <textarea ng-model="ReportDetail.Note" class="form-control input-style no-limit-width work-note label-text" id="input-message" rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
+                                    <textarea ng-model="ReportDetail.Note" class="form-control input-style no-limit-width work-note label-text" 0 rows="5" placeholder="Để lại lời nhắn của bạn ..."></textarea>
                                 </div>
                             </div>
 
@@ -248,34 +243,7 @@
         </div>
     </div>
 </section>
-@*<script type="text/javascript">
-        function ValidateForm() {
-            var isValid = true;
-            var userName = $('#input-name').val().trim();
-            var phone = $('#input-phone').val();
-            if (userName == null || userName == undefined || userName == 0) {
-                $('#input-name-error').text('Vui lòng nhập tên của bạn')
-                $('#input-name-error').removeClass('d-none');
-                isValid = false;
-            }
-            else
-                $('#input-name-error').addClass('d-none');
 
-            if (phone == null || phone == undefined || phone.length == 0) {
-                $('#input-phone-error').text('Vui lòng nhập số điện thoại của bạn')
-                $('#input-phone-error').removeClass('d-none');
-                isValid = false;
-            }
-            else if (!isValidPhoneNumber(phone)) {
-                $('#input-phone-error').text('Vui lòng nhập đúng định dạng số điện thoại')
-                $('#input-phone-error').removeClass('d-none');
-                isValid = false;
-            }
-            else
-                $('#input-phone-error').addClass('d-none');
-            return isValid;
-        }
-    </script>*@
 
 @*nhung xuong cuoi trang*@
 @section FooterSection{

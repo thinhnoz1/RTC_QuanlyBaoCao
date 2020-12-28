@@ -1,10 +1,10 @@
 ﻿<aside class="page-sidebar">
     <div class="page-logo">
-        <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
-           @* <img src="" alt="SmartAdmin WebApp" aria-roledescription="logo">*@
-            <span class="page-logo-text mr-1">SmartAdmin</span>
+        <a href="~/ProjectManager" class="page-logo-link press-scale-down d-flex align-items-center position-relative" data-toggle="modal" data-target="#modal-shortcut">
+            @* <img src="" alt="SmartAdmin WebApp" aria-roledescription="logo">*@
+            <span class="page-logo-text mr-1" style="font-weight:500">RTC Technology</span>
             <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-         @*   <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>*@
+            @*   <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>*@
         </a>
     </div>
     <!-- BEGIN PRIMARY NAVIGATION -->
@@ -17,89 +17,39 @@
                 </a>
             </div>
         </div>
-        <div class="info-card">
-            @*<img src="" class="profile-image rounded-circle" alt="Dr. Codex Lantern">*@
-            <div class="info-card-text">
-                <a href="#" class="d-flex align-items-center text-white">
-                    <span class="text-truncate text-truncate-sm d-inline-block">
-                        Dr. Codex Lantern
-                    </span>
+        @* <div class="info-card">
+                <div class="info-card-text">
+
+                </div>
+                <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
+                    <i class="fal fa-angle-down"></i>
                 </a>
-                <span class="d-inline-block text-truncate text-truncate-sm">Toronto, Canada</span>
-            </div>
-            @*<img src="" class="cover" alt="cover">*@
-            <a href="#" onclick="return false;" class="pull-trigger-btn" data-action="toggle" data-class="list-filter-active" data-target=".page-sidebar" data-focus="nav_filter_input">
-                <i class="fal fa-angle-down"></i>
-            </a>
-        </div>
+            </div>*@
         <ul id="js-nav-menu" class="nav-menu">
-            <li @*class="active open"*@>
+           
+
+            <li>
+                <a href="~/ProjectManager/Index">
+                    <i class="fal fa-tag"></i>
+                    <span class="nav-link-text">Trang chủ</span>
+                </a>
+
+            </li>
+             <li @*class="active open"*@>
                 <a href="~/Report/Index" title="Application Intel" data-filter-tags="application intel">
                     <i class="far fa-fw fa-sticky-note"></i>
-                    <span class="nav-link-text" data-i18n="nav.application_intel">Báo cáo mỗi ngày</span>
+                    <span class="nav-link-text">Báo cáo mỗi ngày</span>
                 </a>
-              @*  <ul>
-                    <li class="active">
-                        <a href="intel_analytics_dashboard.html" title="Analytics Dashboard" data-filter-tags="application intel analytics dashboard">
-                            <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">Analytics Dashboard</span>
-                        </a>
-                    </li>
-                   
-                </ul>*@
+                @*  <ul>
+                        <li class="active">
+                            <a href="intel_analytics_dashboard.html" title="Analytics Dashboard" data-filter-tags="application intel analytics dashboard">
+                                <span class="nav-link-text" data-i18n="nav.application_intel_analytics_dashboard">Analytics Dashboard</span>
+                            </a>
+                        </li>
+
+                    </ul>*@
             </li>
-            <li>
-                <a href="#" title="Theme Settings" data-filter-tags="theme settings">
-                    <i class="fal fa-cog"></i>
-                    <span class="nav-link-text" data-i18n="nav.theme_settings">Theme Settings</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="settings_how_it_works.html" title="How it works" data-filter-tags="theme settings how it works">
-                            <span class="nav-link-text" data-i18n="nav.theme_settings_how_it_works">How it works</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings_layout_options.html" title="Layout Options" data-filter-tags="theme settings layout options">
-                            <span class="nav-link-text" data-i18n="nav.theme_settings_layout_options">Layout Options</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings_skin_options.html" title="Skin Options" data-filter-tags="theme settings skin options">
-                            <span class="nav-link-text" data-i18n="nav.theme_settings_skin_options">Skin Options</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="settings_saving_db.html" title="Saving to Database" data-filter-tags="theme settings saving to database">
-                            <span class="nav-link-text" data-i18n="nav.theme_settings_saving_to_database">Saving to Database</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" title="Package Info" data-filter-tags="package info">
-                    <i class="fal fa-tag"></i>
-                    <span class="nav-link-text" data-i18n="nav.package_info">Package Info</span>
-                </a>
-                <ul>
-                    <li>
-                        <a href="info_app_docs.html" title="Documentation" data-filter-tags="package info documentation">
-                            <span class="nav-link-text" data-i18n="nav.package_info_documentation">Documentation</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="info_app_licensing.html" title="Product Licensing" data-filter-tags="package info product licensing">
-                            <span class="nav-link-text" data-i18n="nav.package_info_product_licensing">Product Licensing</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="info_app_flavors.html" title="Different Flavors" data-filter-tags="package info different flavors">
-                            <span class="nav-link-text" data-i18n="nav.package_info_different_flavors">Different Flavors</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-          
-            
+
         </ul>
         <div class="filter-message js-filter-message bg-success-600"></div>
     </nav>
@@ -110,22 +60,6 @@
             <i class="ni ni-chevron-right"></i>
             <i class="ni ni-chevron-right"></i>
         </a>
-        <ul class="list-table m-auto nav-footer-buttons">
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Chat logs">
-                    <i class="fal fa-comments"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Support Chat">
-                    <i class="fal fa-life-ring"></i>
-                </a>
-            </li>
-            <li>
-                <a href="javascript:void(0);" data-toggle="tooltip" data-placement="top" title="Make a call">
-                    <i class="fal fa-phone"></i>
-                </a>
-            </li>
-        </ul>
+
     </div> <!-- END NAV FOOTER -->
 </aside>
