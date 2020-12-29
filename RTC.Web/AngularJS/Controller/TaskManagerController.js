@@ -152,7 +152,7 @@ RTCWebApp.controller('TaskManagerController',
                     if (res.data.IsSuccess) {
                         toastr["success"]("Giao việc thành công !!");
                         $scope.ClearModal();
-                        $scope.ClearTempList();
+                 
                         $scope.Init();
                     }
                     else {
@@ -207,6 +207,7 @@ RTCWebApp.controller('TaskManagerController',
                 $scope.TaskDetail = null;
                 $scope.TaskDetail = item;
                 $scope.CurrentColumn = column;
+                $scope.thisTaskID = item.id;    
             }
         }
 
@@ -350,16 +351,43 @@ RTCWebApp.controller('TaskManagerController',
             });
         }
 
+        $scope.TempAdded = {
+            id: null,
+            UserID: null,
+            FullName: null,
+            TaskID: null,
+            ProjectID: null,
+        };
+
+        $scope.TempAddedList = [];
+
         $scope.AddWorker = function () {
             if ($scope.Temp.UserID != null) {
-                if ($scope.TaskMemberIDList.length == 0) {
+                var result3 = $scope.FirstListTaskMember.filter(x => x.TaskID == $scope.TaskDetail.id)
+                if (result3.length == 0) {
                     var result2 = $scope.TempList.filter(x => x.UserID == $scope.Temp.UserID);
                     if (result2.length == 0) {
                         $scope.Temp.ProjectID = projectDetailID;
                         $scope.Temp.TaskID = angular.copy($scope.TaskDetail.id);
                         $scope.TempList.push($scope.Temp);
+
+                        //Add to TempAddedList
+                        $scope.TempAdded.ProjectID = projectDetailID;
+                        $scope.TempAdded.TaskID = angular.copy($scope.TaskDetail.id);
+                        $scope.TempAdded.UserID = parseInt($scope.Temp.UserID);
+                        var tempFullname = $scope.EmployeeList.filter(x => x.UserID == $scope.Temp.UserID);
+                        $scope.TempAdded.FullName = angular.copy(tempFullname[0].FullName);
+                        $scope.TempAddedList.push($scope.TempAdded);
+                        //Clear temp object
                         $scope.Temp = {
                             UserID: null,
+                            TaskID: null,
+                            ProjectID: null,
+                        };
+                        $scope.TempAdded = {
+                            id: null,
+                            UserID: null,
+                            FullName: null,
                             TaskID: null,
                             ProjectID: null,
                         };
@@ -375,8 +403,24 @@ RTCWebApp.controller('TaskManagerController',
                             $scope.Temp.ProjectID = projectDetailID;
                             $scope.Temp.TaskID = angular.copy($scope.TaskDetail.id);
                             $scope.TempList.push($scope.Temp);
+
+                            //Add to TempAddedList
+                            $scope.TempAdded.ProjectID = projectDetailID;
+                            $scope.TempAdded.TaskID = angular.copy($scope.TaskDetail.id);
+                            $scope.TempAdded.UserID = parseInt($scope.Temp.UserID);
+                            var tempFullname = $scope.EmployeeList.filter(x => x.UserID == $scope.Temp.UserID);
+                            $scope.TempAdded.FullName = angular.copy(tempFullname[0].FullName);
+                            $scope.TempAddedList.push($scope.TempAdded);
+                            //Clear temp object
                             $scope.Temp = {
                                 UserID: null,
+                                TaskID: null,
+                                ProjectID: null,
+                            };
+                            $scope.TempAdded = {
+                                id: null,
+                                UserID: null,
+                                FullName: null,
                                 TaskID: null,
                                 ProjectID: null,
                             };
@@ -394,6 +438,7 @@ RTCWebApp.controller('TaskManagerController',
 
         $scope.RemoveWorker = function (userID) {
             $scope.TempList = $scope.TempList.filter(x => x.UserID != userID);
+            $scope.TempAddedList = $scope.TempAddedList.filter(x => x.UserID != userID);
         };
 
         $scope.DeleteWorker = function (id) {
@@ -422,6 +467,7 @@ RTCWebApp.controller('TaskManagerController',
                 ProjectID: null,
             };
             $scope.TempList = [];
+            $scope.TempAddedList = [];
         }
 
         $scope.Init1 = function () {

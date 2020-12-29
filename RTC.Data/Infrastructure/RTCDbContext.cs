@@ -28,6 +28,7 @@ namespace RTC.Data
         public DbSet<RTC_TaskList> RTC_TaskLists { get; set; }
         public DbSet<RTC_CommentList> RTC_CommentLists { get; set; }
         public DbSet<RTC_TaskMember> RTC_TaskMembers { get; set; }
+        public DbSet<RTC_BackgroundImage> RTC_BackgroundImages { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

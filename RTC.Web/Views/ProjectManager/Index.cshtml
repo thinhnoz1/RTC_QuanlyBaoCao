@@ -5,6 +5,15 @@
 }
 
 <style>
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .page-content {
+        padding: 0 !important;
+    }
+
     #page-wrap {
         position: absolute;
         top: 0;
@@ -49,14 +58,23 @@
 
     .body-container {
         width: 100%;
-        padding: 0 1.5rem 5rem;
+    }
+
+    @@media (max-width: 950px) {
+
+
+        .body-container {
+            margin: 0 auto;
+            width: 100%;
+            padding: 0 1.5rem 5rem;
+        }
     }
 
     .contact-body {
         position: relative;
     }
 
-    .form {
+    .board {
         background: #eef8ff;
         border-color: #cacaca;
         padding: 2rem !important;
@@ -66,7 +84,7 @@
     }
 
     @@media (max-width: 600px) {
-        .form {
+        .board {
             background: #36393f;
             border-color: #262626;
             padding: 1rem !important;
@@ -76,31 +94,77 @@
         }
     }
 
-    .form-background {
+    .board-background {
         background: #eef8ff;
     }
 
-    @@media (max-width: 950px) {
+    .title-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        color: #172b4d;
+        font-weight: 700;
+        line-height: 24px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
 
+    .icon-style {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: #172b4d;
+        font-weight: 600;
+        line-height: 24px;
+        font-size: 16px;
+    }
 
-        .body-container {
-            margin: 0 auto;
-            width: 100%;
-            max-width: 800px !important;
-            padding: 0 1.5rem 5rem;
-        }
+    .text-img {
+        font-weight: 700;
+        line-height: 20px;
+        color: white;
+        overflow-wrap: break-word;
+        text-align: left;
+        word-wrap: break-word;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        cursor: pointer;
+        position: absolute;
+        font-size: 22px;
+        top: 1.5rem;
+        left: 2.5rem;
+    }
+
+    .img-style {
+        background-size: cover;
+        width: 23%;
+        height: 125px;
+        background-position: center center;
+        border-radius: 5px;
     }
 </style>
 
-<div id="page-wrap" class="d-flex flex-column gradient-bg">
-    <div style="z-index: 2;  overflow-x: auto;overflow-y: auto; height: 100%">
+<div class="d-flex flex-column gradient-bg" style="height:100%">
+    <div style="z-index: 2;">
         <div class="contact-body">
             <div class="body-container d-flex flex-wrap">
-                <!-- || Form -->
-                <form class="form table-bordered form-background col-lg-10 col-xs-12" novalidate name="formReport" style=" margin: 1rem auto">
 
-                    
-                </form>
+                <!-- || board -->
+                <div class="board board-background col-lg-10 col-xs-12" style=" margin: 1rem auto">
+                    <div class="d-flex col-12">
+                        <i class="far fa-user icon-style mr-2"></i>
+                        <h3 class="title-text">Các dự án của bạn</h3>
+                    </div>
+                    <div class="mt-2 d-flex flex-wrap" style="">
+
+                        <a href="#" class="mr-2 mb-2 img-style" style="background-image: url(/Assets/Client/bgimg/bgimg.jpg);">
+                            <div style="padding:1rem">
+                                <h1 style="font-size: 16px; color: #fff; font-weight: 700; line-height: 20px;">
+                                    RTC Project
+                                </h1>
+                            </div>
+                        </a>
+
+                        
+                    </div>
+                </div>
                 <!-- -->
 
 
@@ -113,7 +177,7 @@
     <div class="cnxoay2"></div>
 
 
-  
+
 
 </div>
 

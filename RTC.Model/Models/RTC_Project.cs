@@ -30,6 +30,8 @@ namespace RTC.Model.Models
         [Column(TypeName = "date")]
         public DateTime? EndDateExpected { get; set; }
 
+        public int? idImage { get; set; }
+
         public virtual IEnumerable<RTC_ProjectMember> RTC_ProjectMember { get; set; }
 
         public virtual IEnumerable<RTC_ReportDetail> RTC_ReportDetail { get; set; }

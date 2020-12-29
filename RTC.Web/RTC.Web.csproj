@@ -2040,6 +2040,17 @@
     <Content Include="Assets\Admin\webfonts\fa-regular-400.svg" />
     <Content Include="Assets\Admin\webfonts\fa-solid-900.svg" />
     <Content Include="Assets\Admin\webfonts\nextgen-icons.svg" />
+    <Content Include="Assets\Client\bgimg\bgimg.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg1.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg10.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg2.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg3.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg4.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg5.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg6.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg7.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg8.jpg" />
+    <Content Include="Assets\Client\bgimg\bgimg9.jpg" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -3523,7 +3534,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Views\AdminBase\" />
-    <Folder Include="Assets\Client\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Navigation\" />
   </ItemGroup>

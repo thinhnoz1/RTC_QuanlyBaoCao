@@ -86,12 +86,15 @@ namespace RTC.Web.Controllers
                 {
                     taskListService.Delete(id);
                     taskListService.DeleteMulti(id);
-                    foreach (var i in listChild)
+                    if(listChild != null)
                     {
-                        taskMemberService.DeleteMulti(i.id);
-                    }
+                        foreach (var i in listChild)
+                        {
+                            taskMemberService.DeleteMulti(i.id);
+                        }
 
-                    taskMemberService.SaveChanges();
+                        taskMemberService.SaveChanges();
+                    }
                     taskListService.SaveChanges();
                     return AjaxResult(true, "success");
                 }

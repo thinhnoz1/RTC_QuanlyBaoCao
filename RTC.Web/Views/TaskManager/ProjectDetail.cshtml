@@ -415,9 +415,9 @@
                               
                                 <div class="form-group mt-2">
                                     <label class="p-text">Thêm nhân viên:</label> 
-                                    <div class="mb-1" ng-if="($scope.TaskMemberIDList == null) == true">
-                                        <button type="button" style="margin-right: 0.8rem" class="btn btn-sm btn-outline-primary" ng-repeat="item in TempList" ng-click="RemoveWorker(item.UserID)">
-                                            {{item.UserID}}
+                                    <div class="mb-1" >
+                                        <button type="button" style="margin-right: 0.8rem" class="btn btn-sm btn-outline-primary" ng-repeat="item1 in TempAddedList" ng-click="RemoveWorker(item1.UserID)">
+                                            {{item1.FullName}}
                                         </button>
                                     </div>
                                     <select ng-model="Temp.UserID" class="select2 form-control col-md-9 col-sm-12 " style="background:#36393f">
