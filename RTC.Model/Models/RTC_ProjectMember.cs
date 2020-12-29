@@ -9,11 +9,10 @@ namespace RTC.Model.Models
     public class RTC_ProjectMember
     {
         [Key]
-        [Column(Order = 0)]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int id { get; set; }
         public int ProjectID { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
         public int UserID { get; set; }
 
         public int? RoleID { get; set; }

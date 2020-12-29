@@ -18,18 +18,21 @@ namespace RTC.Web.Controllers
         private readonly ITaskListService taskListService;
         private readonly ICommentListService commentListService;
         private readonly ITaskMemberService taskMemberService;
+        private readonly IProjectMemberService projectMemberService;
         public TaskManagerController(
           IProjectService _projectService,
           IEmployeeService _employeeService,
           ITaskListService _taskListService,
           ICommentListService _commentListService,
-          ITaskMemberService _taskMemberService)
+          ITaskMemberService _taskMemberService,
+          IProjectMemberService _projectMemberService)
         {
             this.projectService = _projectService;
             this.employeeService = _employeeService;
             this.taskListService = _taskListService;
             this.commentListService = _commentListService;
             this.taskMemberService = _taskMemberService;
+            this.projectMemberService = _projectMemberService;
         }
 
         // GET: TaskManager
@@ -38,11 +41,21 @@ namespace RTC.Web.Controllers
             return View();
         }
 
-        public ActionResult ProjectDetail ()
+        public ActionResult ProjectDetail (int projectID)
         {
-            var data = projectService.GetByProjectID(1);
-            ViewBag.ProjectName = data.ProjectCode + " " + data.ProjectName;
-            return View(data.ProjectID);
+            var session = (AccountLogin)Session[CommonConstants.USER_SESSION];
+            var list = taskMemberService.GetUserProject(session.UserID);
+            var list2 = projectMemberService.GetUserProject(session.UserID);
+            if (list.Contains(projectID) == true || list2.Contains(projectID) == true)
+            {
+                var data = projectService.GetByProjectID(projectID);
+                ViewBag.ProjectName = data.ProjectCode + " " + data.ProjectName;
+                return View(data.ProjectID);
+            }
+            else
+            {
+                return RedirectToAction("Index", "ProjectManager");
+            }
         }
 
         public ActionResult GetTaskList(int projectID)
@@ -256,7 +269,7 @@ namespace RTC.Web.Controllers
             }
             catch (Exception e)
             {
-                return AjaxResult(false, "Xóa thất bại");
+                return AjaxResult(false, "Xóa thất bại", null, e.Message);
             }
           
         }

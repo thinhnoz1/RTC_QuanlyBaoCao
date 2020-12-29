@@ -208,10 +208,12 @@
   <ItemGroup>
     <Content Include="AngularJS\App\app.js" />
     <Content Include="AngularJS\Controller\NavBarController.js" />
+    <Content Include="AngularJS\Controller\ProjectManagerController.js" />
     <Content Include="AngularJS\Controller\ReportAdminController.js" />
     <Content Include="AngularJS\Controller\ReportController.js" />
     <Content Include="AngularJS\Controller\TaskManagerController.js" />
     <Content Include="AngularJS\Service\NavBarService.js" />
+    <Content Include="AngularJS\Service\ProjectManagerService.js" />
     <Content Include="AngularJS\Service\ReportAdminService.js" />
     <Content Include="AngularJS\Service\ReportService.js" />
     <Content Include="AngularJS\Service\TaskManagerService.js" />
@@ -2051,6 +2053,8 @@
     <Content Include="Assets\Client\bgimg\bgimg7.jpg" />
     <Content Include="Assets\Client\bgimg\bgimg8.jpg" />
     <Content Include="Assets\Client\bgimg\bgimg9.jpg" />
+    <Content Include="Assets\Client\icon\iconfinder_More_372914 %281%29.png" />
+    <Content Include="Assets\Client\icon\iconfinder_More_372914.png" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />

@@ -36,6 +36,8 @@ namespace RTC.Service.Services
             taskMemberRepository.DeleteMulti(x => x.TaskID == id);
         }
 
+
+
         public IEnumerable<RTC_TaskMember> GetAll(long taskID)
         {
             return taskMemberRepository.GetMulti(x => x.TaskID == taskID);
@@ -43,6 +45,14 @@ namespace RTC.Service.Services
         public IEnumerable<RTC_TaskMember> GetAll(int projectID)
         {
             return taskMemberRepository.GetMulti(x => x.ProjectID == projectID);
+        } 
+        
+        public List<int> GetUserProject(int userid)
+        {
+            var firstList = taskMemberRepository.GetMulti(x => x.UserID == userid).ToList();
+            var secondList = firstList.Select(x => x.ProjectID);
+            var result = secondList.Distinct().ToList();
+            return result;
         }
 
         public IEnumerable<RTC_TaskMember> GetAll()
@@ -63,6 +73,11 @@ namespace RTC.Service.Services
         public void Update(RTC_TaskMember task)
         {
             taskMemberRepository.Update(task);
+        }
+
+        public void DeleteMultiByProjectID(int id)
+        {
+            taskMemberRepository.DeleteMulti(x => x.ProjectID == id);
         }
     }
 }

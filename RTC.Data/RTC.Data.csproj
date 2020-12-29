@@ -62,8 +62,10 @@
     <Compile Include="Infrastructure\RepositoryBase.cs" />
     <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="IRepositories\IAccountRepository.cs" />
+    <Compile Include="IRepositories\IBackgroundImageRepository.cs" />
     <Compile Include="IRepositories\ICommentListRepository.cs" />
     <Compile Include="IRepositories\IEmployeeRepository.cs" />
+    <Compile Include="IRepositories\IProjectMemberRepository.cs" />
     <Compile Include="IRepositories\IProjectRepository.cs" />
     <Compile Include="IRepositories\IReportDetailRepository.cs" />
     <Compile Include="IRepositories\ITaskListRepository.cs" />
@@ -78,8 +80,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Repositories\AccountRepository.cs" />
+    <Compile Include="Repositories\BackgroundImageRepository.cs" />
     <Compile Include="Repositories\CommentListRepository.cs" />
     <Compile Include="Repositories\EmployeeRepository.cs" />
+    <Compile Include="Repositories\ProjectMemberRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
     <Compile Include="Repositories\ReportDetailRepository.cs" />
     <Compile Include="Repositories\TaskListRepository.cs" />

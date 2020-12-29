@@ -60,7 +60,7 @@
         width: 100%;
     }
 
-    @@media (max-width: 950px) {
+   @* @@media (max-width: 950px) {
 
 
         .body-container {
@@ -68,11 +68,7 @@
             width: 100%;
             padding: 0 1.5rem 5rem;
         }
-    }
-
-    .contact-body {
-        position: relative;
-    }
+    }*@
 
     .board {
         background: #eef8ff;
@@ -96,6 +92,14 @@
 
     .board-background {
         background: #eef8ff;
+    }
+
+    .board-header-text {
+        color: #172b4d;
+        font-size: 0.875rem;
+        font-weight: 500;
+        line-height: 1.5rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .title-text {
@@ -138,31 +142,144 @@
         height: 125px;
         background-position: center center;
         border-radius: 5px;
+        position:relative;
+    }
+
+    #parent:hover #child {
+        opacity: 1;
+    }
+
+    #child {
+        opacity:0;
+    }
+
+    .add-btn {
+        position: absolute;
+        left: 39%;
+        top: 30%;
+    }
+
+    .del-button {
+        color: white;
+        font-size: 25px;
+        position: absolute;
+        left: 89%;
+    }
+
+    @@media screen and (max-width: 400px){
+        .img-style {
+            background-size: cover;
+            width: 47%;
+            height: 125px;
+            background-position: center center;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .add-btn {
+            position: absolute;
+            left: 34%;
+            top: 30%;
+        }
+
+        .del-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            left: 81%;
+        }
+    }
+
+    @@media screen and (min-width: 401px) and (max-width: 600px) {
+        .img-style {
+            background-size: cover;
+            width: 47%;
+            height: 125px;
+            background-position: center center;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        .add-btn {
+            position: absolute;
+            left: 34%;
+            top: 30%;
+        }
+
+        .del-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            left: 83%;
+        }
+    }
+
+    @@media screen and (min-width: 601px) and (max-width: 900px) {
+        .img-style {
+            background-size: cover;
+            width: 32%;
+            height: 125px;
+            background-position: center center;
+            border-radius: 5px;
+            position: relative;
+        }
+        .del-button {
+            color: white;
+            font-size: 30px;
+            position: absolute;
+            left: 85%;
+        }
     }
 </style>
 
-<div class="d-flex flex-column gradient-bg" style="height:100%">
+<div class="d-flex flex-column gradient-bg" style="height:100%" ng-controller="ProjectManagerController">
     <div style="z-index: 2;">
         <div class="contact-body">
             <div class="body-container d-flex flex-wrap">
 
                 <!-- || board -->
                 <div class="board board-background col-lg-10 col-xs-12" style=" margin: 1rem auto">
-                    <div class="d-flex col-12">
-                        <i class="far fa-user icon-style mr-2"></i>
-                        <h3 class="title-text">Các dự án của bạn</h3>
+                    <div>
+                        <div class="d-flex col-12">
+                            <i class="far fa-user icon-style mr-2"></i>
+                            <h3 class="title-text">Các dự án của bạn</h3>
+                        </div>
+                        <div class="mt-2 d-flex flex-wrap" style="">
+
+                            <a ng-repeat="item in ListUserOwnedProject track by $index" id="parent" href="#" ng-style="ListBGImageStyle[$index]" class="mr-2 mb-2 img-style" ng-click="GoToProjectDetail(item.ProjectID)">
+                                <span id="child" ng-click="DeleteProject(item.ProjectID)"><i class="far fa-times-circle del-button"></i></span>
+                                <div style="padding:1rem;">
+                                    <h1 style="font-size: 16px; color: #fff; font-weight: 700; line-height: 20px;">
+                                        {{item.ProjectName}}
+                                    </h1>
+                                </div>
+                            </a>
+                            <a class="mr-2 mb-2 img-style" style="background-color: #bbb; cursor: pointer" data-toggle="modal" data-target="#modal2">
+                                <div style="padding:1rem; height: 100%; position:relative">
+                                    <img class="add-btn" src="~/Assets/Client/icon/iconfinder_More_372914 (1).png" alt="Alternate Text" width="50" height="50" />
+                                </div>
+                            </a>
+
+                        </div>
                     </div>
-                    <div class="mt-2 d-flex flex-wrap" style="">
 
-                        <a href="#" class="mr-2 mb-2 img-style" style="background-image: url(/Assets/Client/bgimg/bgimg.jpg);">
-                            <div style="padding:1rem">
-                                <h1 style="font-size: 16px; color: #fff; font-weight: 700; line-height: 20px;">
-                                    RTC Project
-                                </h1>
-                            </div>
-                        </a>
+                    <div class="mt-4">
+                        <div class="d-flex col-12">
+                            <i class="fas fa-users icon-style mr-2"></i>
+                            <h3 class="title-text">Các dự án bạn tham gia</h3>
+                        </div>
+                        <div class="mt-2 d-flex flex-wrap" style="">
 
-                        
+                            <a ng-repeat="item in ListUserJoinedProject track by $index" href="#" ng-style="ListBGImageStyle1[$index]" class="mr-2 mb-2 img-style" ng-click="GoToProjectDetail(item.ProjectID)">
+                                <div style="padding:1rem;">
+                                    <h1 style="font-size: 16px; color: #fff; font-weight: 700; line-height: 20px;">
+                                        {{item.ProjectName}}
+                                    </h1>
+                                </div>
+                            </a>
+
+
+                        </div>
                     </div>
                 </div>
                 <!-- -->
@@ -176,8 +293,51 @@
     <div class="cnxoay1"></div>
     <div class="cnxoay2"></div>
 
+    <div id="add-task">
+        <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content form-background">
+                    <div class="modal-header">
+                        <h5 class="modal-title edit-on-click" style="font-weight:700;font-size: 18px">
+                            Tạo dự án mới
+                        </h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0;">
+                        <div>
+                            <div class="form-group">
+                                <span style="color:red; font-size: 1.2rem">*</span>
+                                <label class="form-label label-text board-header-text" for="example-textarea">Mã dự án: </label>
+                                <div class="">
+                                    <input type="text" ng-model="Dummy.ProjectCode" class="form-control input-style no-limit-width work-detail label-text" rows="5" placeholder="..." />
+                                </div>
+                            </div>
 
+                            <div class="form-group">
+                                <span style="color:red; font-size: 1.2rem">*</span>
+                                <label class="form-label label-text board-header-text" for="example-textarea">Tên dự án: </label>
+                                <div class="">
+                                    <input ng-model="Dummy.ProjectName" class="form-control input-style no-limit-width work-finished label-text" rows="5" placeholder="..." />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="CreateProject()">Thêm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 </div>
 
+@section FooterSection{
+    <script src="~/AngularJS/Service/ProjectManagerService.js"></script>
+    <script src="~/AngularJS/Controller/ProjectManagerController.js"></script>
+
+}

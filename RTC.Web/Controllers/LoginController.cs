@@ -55,5 +55,10 @@ namespace RTC.Web.Controllers
             }
             return View("Index");
         }
+        public ActionResult Logout()
+        {
+            Session.Clear();//remove session
+            return RedirectToAction("Index");
+        }
     }
 }

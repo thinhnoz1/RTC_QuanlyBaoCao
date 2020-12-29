@@ -14,11 +14,20 @@ namespace RTC.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
-                namespaces: new [] {"RTC.Web"}
+                name: "Project Detail",
+                url: "project/{projectID}",
+                defaults: new { controller = "TaskManager", action = "ProjectDetail", id = UrlParameter.Optional },
+                namespaces: new[] { "RTC.Web" }
             );
+
+            routes.MapRoute(
+              name: "Default",
+              url: "{controller}/{action}/{id}",
+              defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional },
+              namespaces: new[] { "RTC.Web" }
+          );
+
+
         }
     }
 }

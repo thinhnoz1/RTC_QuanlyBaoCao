@@ -13,10 +13,12 @@ namespace RTC.Service.IServices
         void Update(RTC_TaskMember task);
         void Delete(long id);
         void DeleteMulti(long id);
+        void DeleteMultiByProjectID(int id);
         RTC_TaskMember GetByID(long id);
         void SaveChanges();
         IEnumerable<RTC_TaskMember> GetAll(long taskID);
         IEnumerable<RTC_TaskMember> GetAll();
         IEnumerable<RTC_TaskMember> GetAll(int projectID);
+        List<int> GetUserProject(int userid);
     }
 }

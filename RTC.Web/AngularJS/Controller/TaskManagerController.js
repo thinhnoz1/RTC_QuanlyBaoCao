@@ -107,7 +107,12 @@ RTCWebApp.controller('TaskManagerController',
                     $scope.Dummy.ParentID = 0;
                     $scope.Dummy.Type = 1;
                     $scope.Dummy.Status = -1;
-                    $scope.Dummy.ColumnOrder = $scope.LatestOrder + 1;
+                    if ($scope.LatestOrder == -Infinity) {
+                        $scope.Dummy.ColumnOrder = 1;
+                    }
+                    else {
+                        $scope.Dummy.ColumnOrder = $scope.LatestOrder + 1;
+                    }
                 }
                 var request = TaskManagerService.SubmitTask($scope.Dummy);
                 request.then(function (res) {
